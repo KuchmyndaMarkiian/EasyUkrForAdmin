@@ -1,0 +1,82 @@
+﻿@using EasyUKR.HTMLHelpers
+@model List<EasyUKR.DB.Word>
+@{
+    ViewBag.Title = "Словник";
+}
+<link type="text/css" rel="stylesheet" href="~/Content/Site.css"/>
+<style>
+    #container {
+        border: 2px solid gray;
+        border-radius: 10px;
+        background: white;
+        width: 300px;
+        padding: 5px;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        text-align: center;
+        cursor: pointer;
+        float: left
+    }
+    #words {
+        border-radius: 10px;
+        background: white;
+        width: auto;
+        margin: auto;
+        max-width: 900px;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-color: transparent;
+        clear: both
+    }
+    label {
+        font-size: medium;
+        font-family: Noto Sans;
+     }
+    img {
+        width: 128px;
+        height:128px;
+    }
+</style>
+<body>
+<center>
+    <h1>Словник</h1>
+    <div id="words">
+        @foreach (var item in Model)
+        {
+            <div id="container">
+                <div>
+                    <div class="col-sm-7">
+                        @Html.LabelForModel(item.Word1)
+                        <br/>
+                        @Html.LabelForModel(item.Translates.First().Translate1)
+                    </div>
+                    <div style="width: auto; height: auto" class="col-sm-offset-7">
+                       <!-- <img src="@Url.Action("FromByte","Extension",new { bytes=item.Translates.First().ImageBytes})" />-->
+                         @Html.Image(item.Translates.First().ImageBytes, item.Word1)
+                    </div>
+                </div>
+                <center><a href="@Url.Action("EditWord","CreatingObjects", new {id = item.WID})"><img class="web-image" src="~/Content/Web_Buttons/edit.png" /></a>
+                    <a href="@Url.Action("DeleteWord","CreatingObjects", new {id = item.WID})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png" /></a></center>
+            </div>
+        }
+    </div>
+    <a href="@Url.Action("CreateWord", "CreatingObjects", new {id = Model.First().TopicID})">Додати слово</a>
+    @{
+        if ((TempData["WordSuccess"] != null && (bool) TempData["WordSuccess"]) ||(TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
+        {
+            <text>
+                <script type="text/javascript">
+                    alert('Дані оновлені');
+                </script>
+            </text>
+            TempData["WordSuccess"] = false;
+        }
+    }
+    <div>
+        @Html.ActionLink("Вернуться к списку", "TopicView", "Cms")
+    </div>
+</center>
+</body>
+

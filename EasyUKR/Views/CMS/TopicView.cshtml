@@ -1,0 +1,69 @@
+﻿@using EasyUKR.HTMLHelpers
+@model List<EasyUKR.DB.Topic>
+@{
+    ViewBag.Title = "Категорії";
+}
+<style>
+    #container {
+        border: 2px solid gray;
+        border-radius: 10px;
+        background: white;
+        width: auto;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        text-align: center;
+        cursor: pointer;
+    }
+    label {
+        font-size: medium;
+        font-family: Noto Sans;
+        -webkit-font-smoothing: antialiased;
+    }
+    img {
+        width: 128px;
+        height:128px;
+        
+    }
+</style>
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+<body>
+<center>
+    <h1>Категорії</h1>
+    <div id="topics" style="background: whitesmoke; border-radius: 15px; border-color: black; width: 400px; height: auto">
+        @foreach (var item in Model)
+        {<a href="@Url.Action("DictionaryView", new {id = item.TopicID})">
+             <div>
+                 <div id="container">
+                     <div class="col-sm-7" style="vertical-align: middle">
+                         @Html.LabelForModel(item.Header)
+                         @Html.LabelForModel(" - " + item.Words.First(X => X.Word1 == item.Header).Translates.First().Translate1)
+                         <br/>
+                         @Html.LabelForModel("К-сть слів: " + item.Words.Count)
+
+                     </div>
+                     <div style="width: auto; height: auto" class="col-sm-offset-7">
+                        <!-- <img src="@Url.Action("FromByte","Extension",new { bytes=item.Words.First(X => X.Word1 == item.Header).Translates.First().ImageBytes})" />-->
+                         @Html.Image(item.Words.First(X => X.Word1 == item.Header).Translates.First().ImageBytes, item.Header)
+                     </div>
+                     <center><a href="@Url.Action("DeleteTopic","CreatingObjects", new {id = item.TopicID})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png" /></a></center>
+                 </div>
+             </div>
+         </a>
+        }
+        <a href="@Url.Action("CreateTopic", "CreatingObjects")">Додати категорію</a>
+        @{
+            if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
+            {
+                <text>
+                    <script type="text/javascript">
+                        alert('Дані оновлені');
+                    </script>
+                </text>
+                TempData["TopicSuccess"] = false;
+            }
+        }
+    </div>
+</center>
+</body>
+

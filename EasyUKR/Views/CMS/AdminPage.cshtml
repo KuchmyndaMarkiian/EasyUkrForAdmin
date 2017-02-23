@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "AdminPage";
+}
+<style>
+    #adminMenu a {
+        font-style: normal;
+        font-family: Noto Sans;
+        -webkit-font-smoothing: antialiased;
+    }
+    #adminMenu menu {
+        width: auto;
+        height: auto;
+    }
+</style>
+<body>
+<h1 style="text-align: center">Сторінка адміністратора EasyUKR</h1>
+<div class="row">
+    <div  class="col-sm-1">
+        <menu id="adminMenu" style="border-bottom-color: darkcyan; border-bottom: aqua; width: 150px; background: #ffd700">
+            <!--<a href="TopicView.cshtml">Тематика</a>-->
+            @Html.ActionLink("Тематика", "TopicView")<br/>
+            @Html.ActionLink("Граматики", "GrammarView")<br />
+            <input type="checkbox"/>
+            <a href="#">Користувачі</a><br/>
+            <a href="#">Статистика</a><br/>
+        </menu>
+    </div>
+    <div class="col-sm-1 col-sm-offset-2" style="background: aqua; width: auto;">
+        
+    </div>
+</div>
+    </body>
+

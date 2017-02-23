@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище EasyUkrModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GrammarAnswer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar(max)" />
+          <Property Name="IsCorrect" Type="bit" />
+          <Property Name="idTask" Type="int" />
+        </EntityType>
+        <EntityType Name="GrammarTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Translate" Type="varchar(max)" />
+          <Property Name="idTopic" Type="int" />
+        </EntityType>
+        <EntityType Name="GrammarTopic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Header" Type="varchar(max)" />
+          <Property Name="Translate" Type="varchar(max)" />
+          <Property Name="File" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="TopicID" />
+          </Key>
+          <Property Name="TopicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Header" Type="varchar" MaxLength="20" />
+          <Property Name="MinScoreForAccess" Type="int" />
+        </EntityType>
+        <EntityType Name="Translate">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Name="TID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WID" Type="int" Nullable="false" />
+          <Property Name="Translate" Type="varchar" MaxLength="255" />
+          <Property Name="ImageName" Type="varchar(max)" />
+          <Property Name="ImageBytes" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UsID" />
+          </Key>
+          <Property Name="UsID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="20" />
+          <Property Name="Donut" Type="varchar" MaxLength="20" />
+          <Property Name="Level" Type="int" />
+          <Property Name="Score" Type="int" />
+        </EntityType>
+        <EntityType Name="UserHistory">
+          <Key>
+            <PropertyRef Name="HID" />
+          </Key>
+          <Property Name="HID" Type="int" Nullable="false" />
+          <Property Name="UsID" Type="int" Nullable="false" />
+          <Property Name="TopicID" Type="int" />
+          <Property Name="EventDate" Type="datetime" />
+          <Property Name="Progress" Type="int" />
+          <Property Name="Info" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="InfoID" />
+          </Key>
+          <Property Name="InfoID" Type="int" Nullable="false" />
+          <Property Name="UsID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="Surname" Type="varchar" MaxLength="20" />
+          <Property Name="DateOfReg" Type="datetime" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="Country" Type="varchar" MaxLength="20" />
+          <Property Name="Location" Type="varchar" MaxLength="20" />
+          <Property Name="E_mail" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="WID" />
+          </Key>
+          <Property Name="WID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TopicID" Type="int" Nullable="false" />
+          <Property Name="Word" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_GrammarAnswer_GrammarTask">
+          <End Role="GrammarTask" Type="Self.GrammarTask" Multiplicity="0..1" />
+          <End Role="GrammarAnswer" Type="Self.GrammarAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrammarTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GrammarAnswer">
+              <PropertyRef Name="idTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrammarTask_GrammarTopic">
+          <End Role="GrammarTopic" Type="Self.GrammarTopic" Multiplicity="0..1" />
+          <End Role="GrammarTask" Type="Self.GrammarTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrammarTopic">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GrammarTask">
+              <PropertyRef Name="idTopic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Translate_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Translate" Type="Self.Translate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="WID" />
+            </Principal>
+            <Dependent Role="Translate">
+              <PropertyRef Name="WID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHistory_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="UserHistory" Type="Self.UserHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UsID" />
+            </Principal>
+            <Dependent Role="UserHistory">
+              <PropertyRef Name="UsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UsID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Word_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="Word" Type="Self.Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="TopicID" />
+            </Principal>
+            <Dependent Role="Word">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище EasyUkrModel1Container">
+          <EntitySet Name="GrammarAnswer" EntityType="Self.GrammarAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrammarTask" EntityType="Self.GrammarTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrammarTopic" EntityType="Self.GrammarTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Topic" EntityType="Self.Topic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Translate" EntityType="Self.Translate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserHistory" EntityType="Self.UserHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Word" EntityType="Self.Word" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GrammarAnswer_GrammarTask" Association="Self.FK_GrammarAnswer_GrammarTask">
+            <End Role="GrammarTask" EntitySet="GrammarTask" />
+            <End Role="GrammarAnswer" EntitySet="GrammarAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrammarTask_GrammarTopic" Association="Self.FK_GrammarTask_GrammarTopic">
+            <End Role="GrammarTopic" EntitySet="GrammarTopic" />
+            <End Role="GrammarTask" EntitySet="GrammarTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Translate_Word" Association="Self.FK_Translate_Word">
+            <End Role="Word" EntitySet="Word" />
+            <End Role="Translate" EntitySet="Translate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHistory_UserAccount" Association="Self.FK_UserHistory_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="UserHistory" EntitySet="UserHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_UserAccount" Association="Self.FK_UserInfo_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Word_Topic" Association="Self.FK_Word_Topic">
+            <End Role="Topic" EntitySet="Topic" />
+            <End Role="Word" EntitySet="Word" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EasyUkrModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GrammarAnswer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsCorrect" Type="Boolean" />
+          <Property Name="idTask" Type="Int32" />
+          <NavigationProperty Name="GrammarTask" Relationship="Self.FK_GrammarAnswer_GrammarTask" FromRole="GrammarAnswer" ToRole="GrammarTask" />
+        </EntityType>
+        <EntityType Name="GrammarTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Translate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idTopic" Type="Int32" />
+          <NavigationProperty Name="GrammarAnswers" Relationship="Self.FK_GrammarAnswer_GrammarTask" FromRole="GrammarTask" ToRole="GrammarAnswer" />
+          <NavigationProperty Name="GrammarTopic" Relationship="Self.FK_GrammarTask_GrammarTopic" FromRole="GrammarTask" ToRole="GrammarTopic" />
+        </EntityType>
+        <EntityType Name="GrammarTopic">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Header" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Translate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="File" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GrammarTasks" Relationship="Self.FK_GrammarTask_GrammarTopic" FromRole="GrammarTopic" ToRole="GrammarTask" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="TopicID" />
+          </Key>
+          <Property Name="TopicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Header" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MinScoreForAccess" Type="Int32" />
+          <NavigationProperty Name="Words" Relationship="Self.FK_Word_Topic" FromRole="Topic" ToRole="Word" />
+        </EntityType>
+        <EntityType Name="Translate">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Name="TID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WID" Type="Int32" Nullable="false" />
+          <Property Name="Translate1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ImageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImageBytes" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Word" Relationship="Self.FK_Translate_Word" FromRole="Translate" ToRole="Word" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UsID" />
+          </Key>
+          <Property Name="UsID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Donut" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="Int32" />
+          <Property Name="Score" Type="Int32" />
+          <NavigationProperty Name="UserHistories" Relationship="Self.FK_UserHistory_UserAccount" FromRole="UserAccount" ToRole="UserHistory" />
+          <NavigationProperty Name="UserInfoes" Relationship="Self.FK_UserInfo_UserAccount" FromRole="UserAccount" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="UserHistory">
+          <Key>
+            <PropertyRef Name="HID" />
+          </Key>
+          <Property Name="HID" Type="Int32" Nullable="false" />
+          <Property Name="UsID" Type="Int32" Nullable="false" />
+          <Property Name="TopicID" Type="Int32" />
+          <Property Name="EventDate" Type="DateTime" Precision="3" />
+          <Property Name="Progress" Type="Int32" />
+          <Property Name="Info" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserAccount" Relationship="Self.FK_UserHistory_UserAccount" FromRole="UserHistory" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="InfoID" />
+          </Key>
+          <Property Name="InfoID" Type="Int32" Nullable="false" />
+          <Property Name="UsID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfReg" Type="DateTime" Precision="3" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserAccount" Relationship="Self.FK_UserInfo_UserAccount" FromRole="UserInfo" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="WID" />
+          </Key>
+          <Property Name="WID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TopicID" Type="Int32" Nullable="false" />
+          <Property Name="Word1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Topic" Relationship="Self.FK_Word_Topic" FromRole="Word" ToRole="Topic" />
+          <NavigationProperty Name="Translates" Relationship="Self.FK_Translate_Word" FromRole="Word" ToRole="Translate" />
+        </EntityType>
+        <Association Name="FK_GrammarAnswer_GrammarTask">
+          <End Role="GrammarTask" Type="Self.GrammarTask" Multiplicity="0..1" />
+          <End Role="GrammarAnswer" Type="Self.GrammarAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrammarTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GrammarAnswer">
+              <PropertyRef Name="idTask" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrammarTask_GrammarTopic">
+          <End Role="GrammarTopic" Type="Self.GrammarTopic" Multiplicity="0..1" />
+          <End Role="GrammarTask" Type="Self.GrammarTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrammarTopic">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GrammarTask">
+              <PropertyRef Name="idTopic" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Word_Topic">
+          <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+          <End Role="Word" Type="Self.Word" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="TopicID" />
+            </Principal>
+            <Dependent Role="Word">
+              <PropertyRef Name="TopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Translate_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="Translate" Type="Self.Translate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="WID" />
+            </Principal>
+            <Dependent Role="Translate">
+              <PropertyRef Name="WID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHistory_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="UserHistory" Type="Self.UserHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UsID" />
+            </Principal>
+            <Dependent Role="UserHistory">
+              <PropertyRef Name="UsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UsID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EasyUkrEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GrammarAnswers" EntityType="Self.GrammarAnswer" />
+          <EntitySet Name="GrammarTasks" EntityType="Self.GrammarTask" />
+          <EntitySet Name="GrammarTopics" EntityType="Self.GrammarTopic" />
+          <EntitySet Name="Topics" EntityType="Self.Topic" />
+          <EntitySet Name="Translates" EntityType="Self.Translate" />
+          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+          <EntitySet Name="UserHistories" EntityType="Self.UserHistory" />
+          <EntitySet Name="UserInfoes" EntityType="Self.UserInfo" />
+          <EntitySet Name="Words" EntityType="Self.Word" />
+          <AssociationSet Name="FK_GrammarAnswer_GrammarTask" Association="Self.FK_GrammarAnswer_GrammarTask">
+            <End Role="GrammarTask" EntitySet="GrammarTasks" />
+            <End Role="GrammarAnswer" EntitySet="GrammarAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrammarTask_GrammarTopic" Association="Self.FK_GrammarTask_GrammarTopic">
+            <End Role="GrammarTopic" EntitySet="GrammarTopics" />
+            <End Role="GrammarTask" EntitySet="GrammarTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Word_Topic" Association="Self.FK_Word_Topic">
+            <End Role="Topic" EntitySet="Topics" />
+            <End Role="Word" EntitySet="Words" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Translate_Word" Association="Self.FK_Translate_Word">
+            <End Role="Word" EntitySet="Words" />
+            <End Role="Translate" EntitySet="Translates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHistory_UserAccount" Association="Self.FK_UserHistory_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="UserHistory" EntitySet="UserHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_UserAccount" Association="Self.FK_UserInfo_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище EasyUkrModel1Container" CdmEntityContainer="EasyUkrEntities1">
+          <EntitySetMapping Name="GrammarAnswers">
+            <EntityTypeMapping TypeName="EasyUkrModel1.GrammarAnswer">
+              <MappingFragment StoreEntitySet="GrammarAnswer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+                <ScalarProperty Name="idTask" ColumnName="idTask" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrammarTasks">
+            <EntityTypeMapping TypeName="EasyUkrModel1.GrammarTask">
+              <MappingFragment StoreEntitySet="GrammarTask">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Translate" ColumnName="Translate" />
+                <ScalarProperty Name="idTopic" ColumnName="idTopic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrammarTopics">
+            <EntityTypeMapping TypeName="EasyUkrModel1.GrammarTopic">
+              <MappingFragment StoreEntitySet="GrammarTopic">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Translate" ColumnName="Translate" />
+                <ScalarProperty Name="File" ColumnName="File" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Topics">
+            <EntityTypeMapping TypeName="EasyUkrModel1.Topic">
+              <MappingFragment StoreEntitySet="Topic">
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="MinScoreForAccess" ColumnName="MinScoreForAccess" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Translates">
+            <EntityTypeMapping TypeName="EasyUkrModel1.Translate">
+              <MappingFragment StoreEntitySet="Translate">
+                <ScalarProperty Name="TID" ColumnName="TID" />
+                <ScalarProperty Name="WID" ColumnName="WID" />
+                <ScalarProperty Name="Translate1" ColumnName="Translate" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ImageBytes" ColumnName="ImageBytes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="EasyUkrModel1.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="UsID" ColumnName="UsID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Donut" ColumnName="Donut" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserHistories">
+            <EntityTypeMapping TypeName="EasyUkrModel1.UserHistory">
+              <MappingFragment StoreEntitySet="UserHistory">
+                <ScalarProperty Name="HID" ColumnName="HID" />
+                <ScalarProperty Name="UsID" ColumnName="UsID" />
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfoes">
+            <EntityTypeMapping TypeName="EasyUkrModel1.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="InfoID" ColumnName="InfoID" />
+                <ScalarProperty Name="UsID" ColumnName="UsID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="DateOfReg" ColumnName="DateOfReg" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="E_mail" ColumnName="E_mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Words">
+            <EntityTypeMapping TypeName="EasyUkrModel1.Word">
+              <MappingFragment StoreEntitySet="Word">
+                <ScalarProperty Name="WID" ColumnName="WID" />
+                <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+                <ScalarProperty Name="Word1" ColumnName="Word" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

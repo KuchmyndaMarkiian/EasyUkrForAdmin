@@ -1,0 +1,29 @@
+﻿@using EasyUKR.HTMLHelpers
+@model EasyUKR.Models.WordExt
+@{
+    ViewBag.Title = "CreateWord";
+}
+<body>
+<center>
+    <h2>Додавання нової категорії</h2>
+    @using (Html.BeginForm("CreateWord", "CreatingObjects", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        <fieldset>
+            <p>Слово(укр)</p>
+            @Html.TextBoxFor(x => x.Word)
+            <p>Переклад(англ)</p>
+            @Html.TextBoxFor(x => x.Translate)
+            <h3>Выберите файл для загрузки</h3>
+            <div class="editor-field">
+                <input type="file" name="uploadImage"/>
+            </div>
+            <p>
+                <input type="submit" value="Добавить"/>
+            </p>
+        </fieldset>
+    }
+    <div>
+        @Html.ActionLink("Вернуться к списку", "DictionaryView", "Cms")
+    </div>
+</center>
+</body>
