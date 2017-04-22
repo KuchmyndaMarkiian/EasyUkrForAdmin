@@ -1,0 +1,32 @@
+﻿@model EasyUkr.DataAccessLayer.Entities.Grammar.GrammarTask
+@{
+    ViewBag.Title = "CreateWord";
+}
+<style type="text/css">
+    input {
+        width: 250px;
+    }
+</style>
+<body>
+<center>
+    <h2>Додавання нового таску</h2>
+    @using (Html.BeginForm("CreateTask", "CreatingObjects", FormMethod.Post))
+    {
+        <fieldset>
+            <p>Завдання(укр)</p>
+            @Html.TextBoxFor(x => x.HeaderUkr)
+            <p>Переклад(англ)</p>
+            @Html.TextBoxFor(x => x.TranslateEng)          
+           <!-- <p>Відповіді</p>-->
+            
+            <p>
+                <input type="submit" value="Добавить" />
+            </p>
+        </fieldset>
+        
+    }
+    <div>
+        @Html.ActionLink("Вернуться к списку", "GrammarTasksView", "Cms")
+    </div>
+</center>
+</body>
