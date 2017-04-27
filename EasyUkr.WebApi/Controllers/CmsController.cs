@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using EasyUkr.WebApi.MyCode;
+using Microsoft.AspNet.Identity;
 
 namespace EasyUkr.WebApi.Controllers
 {
@@ -9,19 +10,26 @@ namespace EasyUkr.WebApi.Controllers
     {
         public ActionResult AdminPage()
         {
-            return View();
+            string v = User.Identity.GetUserName();
+            if (!string.IsNullOrEmpty(v))
+            {
+                var user = DbManager.Instance.Users.FirstOrDefault(x => x.UserName==v);
+                if (user != null)
+                    return View();
+            }
+            return HttpNotFound();
         }
 
         public ActionResult TopicView()
         {
-            Static.Data.SaveChanges();
-            return View(Static.Data.WordTopics.ToList());
+            DbManager.Instance.SaveChanges();
+            return View(DbManager.Instance.WordTopics.ToList());
         }
 
         public ActionResult GrammarView()
         {
-            Static.Data.SaveChanges();
-            return View(Static.Data.GrammarTopics.ToList());
+            DbManager.Instance.SaveChanges();
+            return View(DbManager.Instance.GrammarTopics.ToList());
         }
 
         [HttpGet]
@@ -35,26 +43,26 @@ namespace EasyUkr.WebApi.Controllers
                 return HttpNotFound();
 
             ViewData.Add(new KeyValuePair<string, object>("topic", id1));
-            return View(Static.Data.WordTopics.First(x => x.Id == id1).Words.ToList());
+            return View(DbManager.Instance.WordTopics.First(x => x.Id == id1).Words.ToList());
         }
 
         [HttpPost]
         public ActionResult DictionaryView()
         {
-            return View(Static.Data.WordTopics.First().Words.ToList());
+            return View(DbManager.Instance.WordTopics.First().Words.ToList());
         }
 
         [HttpPost]
         public ActionResult GrammarTasksView()
         {
-            return View(Static.Data.GrammarTopics.First().GrammarTasks.ToList());
+            return View(DbManager.Instance.GrammarTopics.First().GrammarTasks.ToList());
         }
 
         [HttpGet]
         public ActionResult GrammarTasksView(int? id)
         {
             ViewData.Add(new KeyValuePair<string, object>("topic", id));
-            return   View(Static.Data.GrammarTopics.First(x => x.Id == id).GrammarTasks.ToList());
+            return   View(DbManager.Instance.GrammarTopics.First(x => x.Id == id).GrammarTasks.ToList());
         }
     }
 }

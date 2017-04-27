@@ -392,8 +392,8 @@ namespace EasyUkr.WebApi.Areas.HelpPage
         {
             try
             {
-                XDocument xml = XDocument.Parse(str);
-                return xml.ToString();
+               // XDocument xml = XDocument.Parse(str);
+                return str; //xml.ToString();
             }
             catch
             {

@@ -8,7 +8,6 @@
 @{
     ViewBag.Title = "SignUp";
 }
-
 <div class="loginForm">
     <h3>Sign Up</h3>
     <label>Enter Nickname</label><br />
@@ -35,7 +34,8 @@
                         type: 'POST',
                         url: '/Token',
                         data: loginData,
-                        success: function(data) {
+                        success: function (data) {
+                            
                             alert('Successful Token: ' + data.access_token);
                             sessionStorage.setItem(tokenKey, data.access_token);
                         },
@@ -46,10 +46,10 @@
             });
         });
 
-        $('#logOut').click(function(e) {
-            e.preventDefault();
-            sessionStorage.removeItem(tokenKey);
-        });
+            $('#logOut').click(function (e) {
+                e.preventDefault();
+                sessionStorage.removeItem(tokenKey);
+            });
     })
     </script>
 }

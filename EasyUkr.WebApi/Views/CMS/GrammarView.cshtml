@@ -32,23 +32,26 @@
         <ul class="list-group">
             @foreach (var item in Model)
             {
+                if (item != null)
+                {
                     <li class="list-group-item">
-                        <a href="@Url.Action("GrammarTasksView", new { id = item.id })">
+                        <a href="@Url.Action("GrammarTasksView", new {id = item.Id})">
                             <div id="container">
-                                    <div class="col-sm-7" style="vertical-align: middle">
-                                        @Html.LabelForModel(item.Header + "\n")
-                                        @Html.LabelForModel(item.Translate + "\n")
-                                        <br/>
-                                        <br />
-                                        <a href="@Url.Action("OpenDoc", "Extension", new { file = item.File })" target="_blank">Open file here</a>
-                                    </div>
+                                <div class="col-sm-7" style="vertical-align: middle">
+                                    @Html.LabelForModel(item.HeaderUkr + "\n")
+                                    @Html.LabelForModel(item.TranslateEng + "\n")
+                                    <br/>
+                                    <br/>
+                                    <a href="@Url.Action("OpenDoc", "Extension", new {file = item.FileAdress})" target="_blank">Open file here</a>
+                                </div>
                                 <center>
-                                    <a href="@Url.Action("DeleteGrammar", "CreatingObjects", new { id = item.id })" ><img class="web-image" src="~/Content/Web_Buttons/garbage.png" /></a>
+                                    <a href="@Url.Action("DeleteGrammar", "CreatingObjects", new {id = item.Id})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png"/></a>
                                 </center>
-                                </div>                    
+                            </div>
                         </a>
-                        
+
                     </li>
+                }
             }
         </ul>
         <a href="@Url.Action("CreateGrammar", "CreatingObjects")">Додати граматику</a>

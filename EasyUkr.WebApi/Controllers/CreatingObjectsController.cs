@@ -49,10 +49,10 @@ translate.ImageBytes = buffer;*/
                 WordTopic newTopic = new WordTopic {Header = model.Header.ToLower()};
                 newTopic.Words.Add(word);
 
-                Static.Data.TranslateEngs.Add(translate);
-                Static.Data.WordUkrs.Add(word);
-                Static.Data.WordTopics.Add(newTopic);
-                Static.Data.SaveChanges();
+                DbManager.Instance.TranslateEngs.Add(translate);
+                DbManager.Instance.WordUkrs.Add(word);
+                DbManager.Instance.WordTopics.Add(newTopic);
+                DbManager.Instance.SaveChanges();
                 TempData["TopicSuccess"] = true;
                 return RedirectToAction("TopicView","Cms");
             }
@@ -62,12 +62,12 @@ translate.ImageBytes = buffer;*/
         public ActionResult DeleteTopic(int id)
         {
             TempData["DelSuccess"] = false;
-            var topic = Static.Data.WordTopics.First(x => x.Id == id);
+            var topic = DbManager.Instance.WordTopics.First(x => x.Id == id);
             foreach (var variable in topic.Words)
-                Static.Data.TranslateEngs.RemoveRange(variable.Translates);
-            Static.Data.WordUkrs.RemoveRange(topic.Words);
-            Static.Data.WordTopics.Remove(topic);
-            Static.Data.SaveChanges();
+                DbManager.Instance.TranslateEngs.RemoveRange(variable.Translates);
+            DbManager.Instance.WordUkrs.RemoveRange(topic.Words);
+            DbManager.Instance.WordTopics.Remove(topic);
+            DbManager.Instance.SaveChanges();
             TempData["DelSuccess"] = true;
             return RedirectToAction("TopicView", "Cms");
         }
@@ -83,7 +83,7 @@ translate.ImageBytes = buffer;*/
 
                 model.Image = uploadImage;
 
-                var foundedTopic = Static.Data.WordTopics?.First(x => x.Id == id);
+                var foundedTopic = DbManager.Instance.WordTopics?.First(x => x.Id == id);
                 if (foundedTopic != null)
                 {
                     var folder = foundedTopic.Words.First(x => x.Text == foundedTopic.Header).Translates.First().Text;
@@ -99,17 +99,12 @@ translate.ImageBytes = buffer;*/
                         FileAdress = $"~\\{Static.IconPath}\\{folder}\\{file.FileName}",
                         Text = model.Translate.ToLower()
                     };
-                    /*var buffer = new byte[file.ContentLength];
-                    file.InputStream.Read(buffer, 0, file.ContentLength);
-                    translate.ImageBytes = buffer;*/
-                    /*translate.ImageLink =
-                        ($"{ MyCode.Static.IconPath}\\{folder}\\" + model.Image.FileName).Replace('\\', '/');*/
 
                     WordUkr word = new WordUkr {Text = model.Word.ToLower()};
                     word.Translates.Add(translate);
 
                     foundedTopic.Words.Add(word);
-                    Static.Data.SaveChanges();
+                    DbManager.Instance.SaveChanges();
 
                     TempData["redirectedTopicId"] = id;
                     TempData["WordSuccess"] = true;
@@ -130,11 +125,11 @@ translate.ImageBytes = buffer;*/
         public ActionResult DeleteWord(int id)
         {
             TempData["DelSuccess"] = false;
-            var word = Static.Data.WordUkrs.First(x => x.Id == id);
-            Static.Data.TranslateEngs.RemoveRange(word.Translates);
+            var word = DbManager.Instance.WordUkrs.First(x => x.Id == id);
+            DbManager.Instance.TranslateEngs.RemoveRange(word.Translates);
             int id1 = word.ParentTopic.Id;
-            Static.Data.WordUkrs.Remove(word);
-            Static.Data.SaveChanges();
+            DbManager.Instance.WordUkrs.Remove(word);
+            DbManager.Instance.SaveChanges();
             TempData["DelSuccess"] = true;
             return RedirectToAction("DictionaryView", "Cms", new { id = id1 });
         }
@@ -157,12 +152,14 @@ translate.ImageBytes = buffer;*/
                 Directory.CreateDirectory(path);
                 file.SaveAs(path + '\\' + model.File.FileName);
 
-                GrammarTopic topic = new GrammarTopic();
-                topic.HeaderUkr = model.Header;
-                topic.TranslateEng = model.Translate;
-                topic.FileAdress = model.File.FileName;
-                Static.Data.GrammarTopics.Add(topic);
-                Static.Data.SaveChanges();
+                GrammarTopic topic = new GrammarTopic
+                {
+                    HeaderUkr = model.Header,
+                    TranslateEng = model.Translate,
+                    FileAdress = model.File.FileName
+                };
+                DbManager.Instance.GrammarTopics.Add(topic);
+                DbManager.Instance.SaveChanges();
                 
                 TempData["TopicSuccess"] = true;
                 return RedirectToAction("GrammarView", "Cms");
@@ -173,12 +170,12 @@ translate.ImageBytes = buffer;*/
         public ActionResult DeleteGrammar(int id)
         {
             TempData["DelSuccess"] = false;
-            var topic = Static.Data.GrammarTopics.First(x => x.Id == id);
+            var topic = DbManager.Instance.GrammarTopics.First(x => x.Id == id);
             foreach (var variable in topic.GrammarTasks)
-                Static.Data.GrammarAnswers.RemoveRange(variable.GrammarAnswers);
-            Static.Data.GrammarTasks.RemoveRange(topic.GrammarTasks);
-            Static.Data.GrammarTopics.Remove(topic);
-            Static.Data.SaveChanges();
+                DbManager.Instance.GrammarAnswers.RemoveRange(variable.GrammarAnswers);
+            DbManager.Instance.GrammarTasks.RemoveRange(topic.GrammarTasks);
+            DbManager.Instance.GrammarTopics.Remove(topic);
+            DbManager.Instance.SaveChanges();
             TempData["DelSuccess"] = true;
             return RedirectToAction("GrammarView", "Cms");
         }
@@ -196,9 +193,9 @@ translate.ImageBytes = buffer;*/
         {
             TempData["WordSuccess"] = false;
             int? i = (int?) TempData["grammTopic"];
-            topic.GrammarTopic = Static.Data.GrammarTopics.First(x => x.Id == i.Value);
-            Static.Data.GrammarTasks.Add(topic);
-            Static.Data.SaveChanges();
+            topic.GrammarTopic = DbManager.Instance.GrammarTopics.First(x => x.Id == i.Value);
+            DbManager.Instance.GrammarTasks.Add(topic);
+            DbManager.Instance.SaveChanges();
             TempData["redirectedTopicId"] = i.Value;
             TempData["WordSuccess"] = true;
             return View();
@@ -207,11 +204,11 @@ translate.ImageBytes = buffer;*/
         public ActionResult DeleteTask(int id)
         {
             TempData["DelSuccess"] = false;
-            var task = Static.Data.GrammarTasks.First(x => x.Id == id);
+            var task = DbManager.Instance.GrammarTasks.First(x => x.Id == id);
             int idtopic = task.GrammarTopic.Id;
-            Static.Data.GrammarAnswers.RemoveRange(task.GrammarAnswers);
-            Static.Data.GrammarTasks.Remove(task);
-            Static.Data.SaveChanges();
+            DbManager.Instance.GrammarAnswers.RemoveRange(task.GrammarAnswers);
+            DbManager.Instance.GrammarTasks.Remove(task);
+            DbManager.Instance.SaveChanges();
             TempData["DelSuccess"] = true;
             return RedirectToAction("GrammarTasksView", "Cms",new {id= idtopic });
         }

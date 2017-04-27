@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -7,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using EasyUkr.DataAccessLayer.Contexts;
 using EasyUkr.DataAccessLayer.Entities.User;
 using EasyUkr.WebApi.ExecutionStructure;
 using Microsoft.AspNet.Identity;
@@ -16,8 +20,11 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using EasyUkr.WebApi.Models;
+using EasyUkr.WebApi.MyCode;
 using EasyUkr.WebApi.Providers;
 using EasyUkr.WebApi.Results;
+using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 
 namespace EasyUkr.WebApi.Controllers
 {
@@ -56,15 +63,20 @@ namespace EasyUkr.WebApi.Controllers
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        public UserInfoAndroid GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            var name = User.Identity.Name;
+            var founded = DbManager.Instance.Users.FirstOrDefault(x => x.UserName == name);
+            if (founded == null)
+                return null;
 
-            return new UserInfoViewModel
+            return new UserInfoAndroid
             {
-                Email = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin?.LoginProvider
+                DateOfBirth = founded.DateOfBirth,
+                Level = founded.Level.Text,
+                Name = founded.Name,
+                Score = founded.Score,
+                Surname = founded.Surname
             };
         }
 
@@ -74,24 +86,6 @@ namespace EasyUkr.WebApi.Controllers
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
-        }
-        // POST api/Account/User
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("User")]
-        public User GetUser()
-        {
-            var login = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-            var userId = User.Identity.GetUserId();
-            try
-            {
-                var user = UserManager.FindById(userId);
-                return user;
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
-
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
@@ -343,18 +337,18 @@ namespace EasyUkr.WebApi.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            if (!Data.FromClient)
+            /*if (!Data.FromClient)
             {
                 model.Avatar = Data.File();
-            }
+            }*/
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var user = model.ConvetToUser();//new User() { UserName = model.Email, Email = model.Email, };
             try
             {
+                var user = model.ConvetToUser();
+            
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (!result.Succeeded)
@@ -366,6 +360,7 @@ namespace EasyUkr.WebApi.Controllers
             { }
             return Ok();
         }
+        
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]

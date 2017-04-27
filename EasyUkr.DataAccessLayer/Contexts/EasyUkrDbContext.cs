@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 using EasyUkr.DataAccessLayer.Entities;
 using EasyUkr.DataAccessLayer.Entities.Dictionary;
 using EasyUkr.DataAccessLayer.Entities.Grammar;
+using EasyUkr.DataAccessLayer.Entities.Recomendation;
 using EasyUkr.DataAccessLayer.Entities.User;
+using EasyUkr.DataAccessLayer.Initializer;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EasyUkr.DataAccessLayer.Contexts
@@ -14,8 +17,25 @@ namespace EasyUkr.DataAccessLayer.Contexts
         public EasyUkrDbContext()
             : base("name = EasyUkrNew", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new EasyUkrInitializer());
+
+            try
+            {
+                if (Users.Any())
+                {
+                    var list = Users.Where(x => x.Level == null);
+                    foreach (var user in list)
+                    {
+                        user.Level = Levels.FirstOrDefault(x => x.LevelHeader == LevelUkr.Beginner);
+                    }
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
-        
+
         public static EasyUkrDbContext Create()
         {
             return new EasyUkrDbContext();
@@ -32,6 +52,8 @@ namespace EasyUkr.DataAccessLayer.Contexts
         public virtual DbSet<TranslateEng> TranslateEngs { get; set; }
         public virtual DbSet<WordUkr> WordUkrs { get; set; }
         public virtual DbSet<WordTopic> WordTopics { get; set; }
+        public virtual DbSet<Recomendation> Recomendations { get; set; }
+        public virtual DbSet<RecomendationCategory> RecomendationCategories { get; set; }
 
         public enum LevelUkr
         {
@@ -111,21 +133,11 @@ namespace EasyUkr.DataAccessLayer.Contexts
 
             #endregion
 
-            #region Constant Levels
-
-            /*Levels.AddRange(new[]
-            {
-                new Level {MinScore = 0, Text = "Beginner",LevelHeader = LevelUkr.Beginner},
-                new Level {MinScore = 75, Text = "Pre Intermediate",LevelHeader = LevelUkr.PreIntermediate},
-                new Level {MinScore = 200, Text = "Intermediate",LevelHeader = LevelUkr.Intermediate},
-                new Level {MinScore = 500, Text = "Upper Intermediate",LevelHeader = LevelUkr.UpperIntermediate},
-                new Level {MinScore = 1000, Text = "Advance",LevelHeader = LevelUkr.Advance},
-                new Level {MinScore = 2000, Text = "Pro",LevelHeader = LevelUkr.Pro}
-            });*/
-
-            #endregion
+            
 
             base.OnModelCreating(modelBuilder);
         }
+
+        
     }
 }

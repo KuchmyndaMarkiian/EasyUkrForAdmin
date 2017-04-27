@@ -31,27 +31,28 @@ namespace EasyUkr.WebApi.Models
         [Compare("NewPassword", ErrorMessage = "The new password and its confirmation do not match.")]
         public string ConfirmPassword { get; set; }
     }
-
     public class RegisterBindingModel
     {
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
+
         [Required]
         [Display(Name = "Surname")]
         public string Surname { get; set; }
+
         [Required]
         [Display(Name = "Date of Birth")]
         public DateTime Date { get; set; }
+
         [Required]
         [Display(Name = "Nick")]
         public string Nick { get; set; }
+
         [Required]
+        [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
-        [Required]
-        [Display(Name = "Avatar")]
-        public string Avatar { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The value {0} must contain at least {2} characters.", MinimumLength = 6)]
@@ -64,6 +65,8 @@ namespace EasyUkr.WebApi.Models
         [Compare("Password", ErrorMessage = "The password and its confirmation do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+
 
     public class RegisterExternalBindingModel
     {

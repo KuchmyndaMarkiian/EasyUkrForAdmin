@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
@@ -23,8 +24,7 @@ namespace EasyUkr.DataAccessLayer.Entities.User
         public virtual string Surname { get; set; }
         public virtual DateTime DateOfBirth { get; set; }
         public virtual int? Score { get; set; }
-        public virtual byte[] Avatar { get; set; }
-        
+        public virtual string Avatar { get; set; }
         public virtual Level Level { get; set; }
         public virtual ICollection<UserHistory> Histories { get; set; } = new HashSet<UserHistory>();
         public virtual ICollection<Achievement> Achievements { get; set; } = new HashSet<Achievement>();
