@@ -1,6 +1,4 @@
-﻿using System;
-using EasyUkr.DataAccessLayer.Contexts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EasyUkr.Test
 {
@@ -10,7 +8,7 @@ namespace EasyUkr.Test
         [TestMethod]
         public void TestMethod1()
         {
-            EasyUkrDbContext context=new EasyUkrDbContext();
+            //EasyUkrDbContext context=new EasyUkrDbContext();
             
         }
     }

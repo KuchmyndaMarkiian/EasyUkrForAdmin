@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "AdminPage";
+}
+<style>
+    #adminMenu a {
+        font-style: normal;
+        font-family: Noto Sans;
+        -webkit-font-smoothing: antialiased;
+    }
+    #adminMenu menu {
+        width: auto;
+        height: auto;
+    }
+</style>
+<body>
+<h1 style="text-align: center">Administrator` panel EasyUKR</h1>
+<div class="row">
+    <div  class="col-sm-1">
+        <menu id="adminMenu" style="border-bottom-color: darkcyan; border-bottom: aqua; width: 150px; background: #ffd700">
+            @Html.ActionLink("Dictionaries", "TopicView")<br/>
+            @Html.ActionLink("Grammars", "GrammarView")<br />
+            @Html.ActionLink("Recomendations", "RecomendationView")
+            <br />
+        </menu>
+    </div>
+    <div class="col-sm-1 col-sm-offset-2" style="background: aqua; width: auto;">
+        
+    </div>
+</div>
+    </body>
+

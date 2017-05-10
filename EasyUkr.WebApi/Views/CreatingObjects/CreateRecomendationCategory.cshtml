@@ -1,0 +1,28 @@
+﻿@model EasyUkr.WebApi.Models.ViewModels.Topic
+@{
+    ViewBag.Title = "CreateRecomendation";
+}
+<body>
+    <center>
+        <h2>Додавання нової категорії</h2>
+        @using (Html.BeginForm("CreateRecomendationCategory", "CreatingObjects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <fieldset>
+                <p>Назва категорії</p>
+                @Html.TextBoxFor(x => x.Header)
+                <p>Переклад</p>
+                @Html.TextBoxFor(x => x.Translate)
+                <h3>Выберите файл для загрузки</h3>
+                <div class="editor-field">
+                    <input type="file" name="uploadFile" />
+                </div>
+                <p>
+                    <input type="submit" value="Добавить" />
+                </p>
+            </fieldset>
+        }
+        <div>
+            @Html.ActionLink("Go back to list", "RecomendationView", "Admin")
+        </div>
+    </center>
+</body>

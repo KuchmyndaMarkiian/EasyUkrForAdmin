@@ -10,7 +10,7 @@ namespace EasyUkr.WebApi.Infrastructure
 {
     public static class FileDownloader
     {
-        public static HttpResponseMessage PutImage(string file)
+        public static HttpResponseMessage PutFile(string file)
         {
             HttpResponseMessage response = new HttpResponseMessage
             {

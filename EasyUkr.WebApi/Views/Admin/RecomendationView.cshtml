@@ -1,0 +1,68 @@
+﻿@model System.Data.Entity.DbSet<EasyUkr.DataAccessLayer.Entities.Recomendation.RecomendationCategory>
+
+@{
+    ViewBag.Title = "title";
+}
+<style>
+    #container {
+        border: 2px solid gray;
+        border-radius: 10px;
+        background: white;
+        width: auto;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        text-align: center;
+        cursor: pointer;
+    }
+    label {
+        font-size: medium;
+        font-family: Noto Sans;
+        -webkit-font-smoothing: antialiased;
+    }
+    img {
+        width: 128px;
+        height:128px;
+        
+    }
+</style>
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+<body>
+<center>
+    <h1>Категорії</h1>
+    <div id="topics" style="background: whitesmoke; border-radius: 15px; border-color: black; width: 400px; height: auto">
+       @foreach (var item in Model)
+       {
+           <a href="@Url.Action("RecomendationListView", new {id = item.Id})">
+               <div>
+                   <div id="container">
+                       <div class="col-sm-7" style="vertical-align: middle">
+                           @Html.LabelForModel(item.HeaderUkr)
+                           @Html.LabelForModel(item.TranslateEng)
+                       </div>
+                       <div style="width: auto; height: auto" class="col-sm-offset-7">
+                           <img src="@Url.Content(item.FileAdress)"/>
+                       </div>
+                       <center><a href="@Url.Action("DeleteRecomendationCategory", "CreatingObjects", new {id = item.Id})"><img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/></a></center>
+                   </div>
+               </div>
+           </a>
+       }
+        
+    
+            <a href="@Url.Action("CreateRecomendationCategory", "CreatingObjects")">Додати категорію</a>
+        @{
+            if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
+            {
+                <text>
+                    <script type="text/javascript">
+                        alert('Дані оновлені');
+                    </script>
+                </text>
+                TempData["TopicSuccess"] = false;
+            }
+        }
+    </div>
+</center>
+</body>
+

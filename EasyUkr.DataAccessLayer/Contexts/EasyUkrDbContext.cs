@@ -12,28 +12,14 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace EasyUkr.DataAccessLayer.Contexts
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-   public class EasyUkrDbContext : IdentityDbContext<User>
+   public sealed class EasyUkrDbContext : IdentityDbContext<User>
     {
         public EasyUkrDbContext()
             : base("name = EasyUkrNew", throwIfV1Schema: false)
         {
             Database.SetInitializer(new EasyUkrInitializer());
 
-            try
-            {
-                if (Users.Any())
-                {
-                    var list = Users.Where(x => x.Level == null);
-                    foreach (var user in list)
-                    {
-                        user.Level = Levels.FirstOrDefault(x => x.LevelHeader == LevelUkr.Beginner);
-                    }
-                }
-            }
-            catch
-            {
-                // ignored
-            }
+           
         }
 
         public static EasyUkrDbContext Create()
@@ -43,17 +29,42 @@ namespace EasyUkr.DataAccessLayer.Contexts
 
         #region Entities
 
-        public virtual DbSet<Achievement> Achievements { get; set; }
-        public virtual DbSet<Level> Levels { get; set; }
-        public virtual DbSet<UserHistory> Histories { get; set; }
-        public virtual DbSet<GrammarAnswer> GrammarAnswers { get; set; }
-        public virtual DbSet<GrammarTask> GrammarTasks { get; set; }
-        public virtual DbSet<GrammarTopic> GrammarTopics { get; set; }
-        public virtual DbSet<TranslateEng> TranslateEngs { get; set; }
-        public virtual DbSet<WordUkr> WordUkrs { get; set; }
-        public virtual DbSet<WordTopic> WordTopics { get; set; }
-        public virtual DbSet<Recomendation> Recomendations { get; set; }
-        public virtual DbSet<RecomendationCategory> RecomendationCategories { get; set; }
+        public override IDbSet<User> Users
+        {
+            get
+            {
+                try
+                {
+                    if (base.Users.Any())
+                    {
+                        var list = base.Users.Where(x => x.Level == null);
+                        foreach (var user in list)
+                        {
+                            user.Level = Levels.FirstOrDefault(x => x.LevelHeader == LevelUkr.Beginner);
+                        }
+                        SaveChanges();
+                    }
+                }
+                catch
+                {
+                    // ignored
+                }
+                return base.Users;
+            }
+            set => base.Users = value;
+        }
+
+        public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<Level> Levels { get; set; }
+        public DbSet<UserHistory> Histories { get; set; }
+        public DbSet<GrammarAnswer> GrammarAnswers { get; set; }
+        public DbSet<GrammarTask> GrammarTasks { get; set; }
+        public DbSet<GrammarTopic> GrammarTopics { get; set; }
+        public DbSet<TranslateEng> TranslateEngs { get; set; }
+        public DbSet<WordUkr> WordUkrs { get; set; }
+        public DbSet<WordTopic> WordTopics { get; set; }
+        public DbSet<Recomendation> Recomendations { get; set; }
+        public DbSet<RecomendationCategory> RecomendationCategories { get; set; }
 
         public enum LevelUkr
         {

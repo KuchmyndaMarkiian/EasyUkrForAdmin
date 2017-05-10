@@ -1,0 +1,31 @@
+﻿@model EasyUkr.WebApi.Models.ViewModels.Recomendation
+@{
+    ViewBag.Title = "CreateGrammar";
+}
+<body>
+    <center>
+        <h2>Adding new recomendation</h2>
+        @using (Html.BeginForm("CreateRecomendation", "CreatingObjects", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <fieldset>
+                <p>Recomendation header (UKR)</p>
+                @Html.TextBoxFor(x => x.HeaderUkr)
+                <p>Recomendation header (ENG)</p>
+                @Html.TextBoxFor(x => x.TranslateEng)
+                <p>Link:</p>
+                @Html.TextBoxFor(x => x.UrlLink)
+                <h3>Выберите файл для загрузки</h3>
+                <div class="editor-field">
+                    <input type="file" name="uploadFile" />
+                </div>
+                <p>
+                    <input type="submit" value="Добавить" />
+                </p>
+            </fieldset>
+        }
+        <div>
+            @Html.ActionLink("Вернуться к списку", "RecomendationListView", "Admin")
+        </div>
+    </center>
+</body>
+

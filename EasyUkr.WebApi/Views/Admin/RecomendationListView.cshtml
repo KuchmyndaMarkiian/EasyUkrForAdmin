@@ -1,0 +1,86 @@
+﻿@model IQueryable<EasyUkr.DataAccessLayer.Entities.Recomendation.Recomendation>
+
+@{
+    ViewBag.Title = "title";
+}
+
+<link type="text/css" rel="stylesheet" href="~/Content/Site.css"/>
+<style>
+    #container {
+        border: 2px solid gray;
+        border-radius: 10px;
+        background: white;
+        width: 300px;
+        padding: 5px;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        text-align: center;
+        cursor: pointer;
+        float: left
+    }
+    #words {
+        border-radius: 10px;
+        background: white;
+        width: auto;
+        margin: auto;
+        max-width: 900px;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-color: transparent;
+        clear: both
+    }
+    label {
+        font-size: medium;
+        font-family: Noto Sans;
+    }
+    img {
+        width: 128px;
+        height:128px;
+    }
+</style>
+<body>
+<center>
+    <h1>Словник</h1>
+    <div id="words">
+        @foreach (var item in Model)
+        {
+            <div id="container">
+                <div>
+                    <div class="col-sm-7">
+                        @Html.LabelForModel(item.HeaderUkr)
+                        <br/>
+                        @Html.LabelForModel(item.TranslateEng)
+                        <br />
+                        <a href="@Url.Action("OpenLink", "Extension", new {link = item.UrlLink})" target="_blank">Open link here</a>
+                    </div>
+                    <div style="width: auto; height: auto" class="col-sm-offset-7">
+                        <img src="@Url.Content(item.FileAdress)" />
+                    </div>
+                </div>
+                <center>
+                    <a href="@Url.Action("DeleteRecomendation", "CreatingObjects", new {id = item.Id})">
+                        <img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/>
+                    </a>
+                </center>
+            </div>
+        }
+    </div>
+    <a href="@Url.Action("CreateRecomendation", "CreatingObjects", new {id = Model.First().ParentCategory.Id})">Додати слово</a>
+    @{
+        if ((TempData["WordSuccess"] != null && (bool) TempData["WordSuccess"]) ||(TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
+        {
+            <text>
+                <script type="text/javascript">
+                    alert('Дані оновлені');
+                </script>
+            </text>
+            TempData["WordSuccess"] = false;
+        }
+    }
+    <div>
+        @Html.ActionLink("Вернуться к списку", "RecomendationView", "Admin")
+    </div>
+</center>
+</body>

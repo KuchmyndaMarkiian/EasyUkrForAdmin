@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using EasyUkr.WebApi.ExecutionStructure;
+using EasyUkr.WebApi.Infrastructure.ExecutionStructure;
 
 namespace EasyUkr.WebApi.Areas.HelpPage.Controllers
 {

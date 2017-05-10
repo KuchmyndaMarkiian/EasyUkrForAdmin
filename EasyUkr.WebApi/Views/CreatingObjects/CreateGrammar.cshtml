@@ -1,11 +1,10 @@
-﻿
-@model EasyUkr.WebApi.Models.TopicExt
+﻿@model EasyUkr.WebApi.Models.ViewModels.Topic
 @{
     ViewBag.Title = "CreateGrammar";
 }
 <body>
 <center>
-    <h2>Додавання нової граматики</h2>
+    <h2>Adding new recomendation category</h2>
     @using (Html.BeginForm("CreateGrammar", "CreatingObjects", FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
         <fieldset>
@@ -23,7 +22,7 @@
         </fieldset>
     }
     <div>
-        @Html.ActionLink("Вернуться к списку", "GrammarView", "Cms")
+        @Html.ActionLink("Вернуться к списку", "GrammarView", "Admin")
     </div>
 </center>
 </body>

@@ -33,15 +33,7 @@ namespace EasyUkr.WebApi.Models
 
         public string LoginProvider { get; set; }
     }
-
-    public class UserInfoAndroid
-    {
-        public  string Name { get; set; }
-        public  string Surname { get; set; }
-        public  DateTime DateOfBirth { get; set; }
-        public  int? Score { get; set; }
-        public  String Level { get; set; }
-    }
+    
     public class UserLoginInfoViewModel
     {
         public string LoginProvider { get; set; }

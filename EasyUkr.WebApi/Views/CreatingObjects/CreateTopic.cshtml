@@ -1,5 +1,5 @@
 ﻿
-@model EasyUkr.WebApi.Models.TopicExt
+@model EasyUkr.WebApi.Models.ViewModels.Topic
 @{
     ViewBag.Title = "CreateTopic";
 }
@@ -23,7 +23,7 @@
         </fieldset>
     }
     <div>
-        @Html.ActionLink("Вернуться к списку", "TopicView", "Cms")
+        @Html.ActionLink("Вернуться к списку", "TopicView", "Admin")
     </div>
 </center>
 </body>

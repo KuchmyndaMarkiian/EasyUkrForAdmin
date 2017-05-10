@@ -1,4 +1,4 @@
-﻿@model EasyUkr.WebApi.Models.WordExt
+﻿@model EasyUkr.WebApi.Models.ViewModels.Word
 @{
     ViewBag.Title = "CreateWord";
 }
@@ -9,7 +9,7 @@
     {
         <fieldset>
             <p>Слово(укр)</p>
-            @Html.TextBoxFor(x => x.Word)
+            @Html.TextBoxFor(x => x.Text)
             <p>Переклад(англ)</p>
             @Html.TextBoxFor(x => x.Translate)
             <h3>Выберите файл для загрузки</h3>
@@ -22,7 +22,7 @@
         </fieldset>
     }
     <div>
-        @Html.ActionLink("Вернуться к списку", "DictionaryView", "Cms")
+        @Html.ActionLink("Вернуться к списку", "DictionaryView", "Admin")
     </div>
 </center>
 </body>

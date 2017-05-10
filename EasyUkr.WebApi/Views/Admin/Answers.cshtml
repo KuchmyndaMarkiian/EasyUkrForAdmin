@@ -1,0 +1,17 @@
+﻿@model EasyUkr.WebApi.Models.ViewModels.AnswerModel
+
+@{
+    ViewBag.Title = "title";
+}
+@foreach (var answer in Model.Avaible)
+{
+    <div class="checkbox">
+        <label>
+            <input type="checkbox"
+                   name="Selected"
+                   value="@answer.IsCorrect.Value"/> @answer.Answer
+        </label>
+    </div>
+}
+
+

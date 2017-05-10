@@ -233,35 +233,47 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CmsController.cs" />
-    <Compile Include="Controllers\CreatingObjectsController.cs" />
-    <Compile Include="Controllers\ExtensionController.cs" />
+    <Compile Include="Controllers\WebAPI_Stock\AccountController.cs" />
+    <Compile Include="Controllers\CustomWebAPI\RecievingController.cs" />
+    <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\Admin\CreatingObjectsController.cs" />
+    <Compile Include="Controllers\Infrastructure\ExtensionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UploadController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="ExecutionStructure\Data.cs" />
-    <Compile Include="ExecutionStructure\Extension.cs" />
-    <Compile Include="ExecutionStructure\CustomMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Controllers\CustomWebAPI\UploadController.cs" />
+    <Compile Include="Controllers\WebAPI_Stock\ValuesController.cs" />
+    <Compile Include="Infrastructure\ExecutionStructure\Data.cs" />
+    <Compile Include="Infrastructure\ExecutionStructure\Extension.cs" />
+    <Compile Include="Infrastructure\ExecutionStructure\CustomMultipartFormDataStreamProvider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HTMLHelpers\Helpers.cs" />
+    <Compile Include="Infrastructure\HTMLHelpers\Helpers.cs" />
+    <Compile Include="Infrastructure\ImageDownloader.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ExtendedModels.cs" />
-    <Compile Include="Models\MyFile.cs" />
-    <Compile Include="MyCode\DbManager.cs" />
-    <Compile Include="MyCode\Static.cs" />
+    <Compile Include="Models\ClientModels.cs" />
+    <Compile Include="Models\RestModels\Grammar.cs" />
+    <Compile Include="Models\RestModels\Topic.cs" />
+    <Compile Include="Models\UploadedFile.cs" />
+    <Compile Include="Infrastructure\DbManager.cs" />
+    <Compile Include="Infrastructure\Static.cs" />
+    <Compile Include="Models\RestModels\UserInfo.cs" />
+    <Compile Include="Models\RestModels\Word.cs" />
+    <Compile Include="Models\ViewModels\AnswerModel.cs" />
+    <Compile Include="Models\ViewModels\Recomendation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Models\ViewModels\Topic.cs" />
+    <Compile Include="Models\ViewModels\Word.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Web_Buttons\edit.png" />
+    <Content Include="Content\Web_Buttons\garbage.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -321,16 +333,19 @@
     <Content Include="Views\CreatingObjects\CreateTask.cshtml" />
     <Content Include="Views\CreatingObjects\CreateTopic.cshtml" />
     <Content Include="Views\CreatingObjects\CreateWord.cshtml" />
-    <Content Include="Views\CMS\AdminPage.cshtml" />
-    <Content Include="Views\CMS\DictionaryView.cshtml" />
-    <Content Include="Views\CMS\GrammarTasksView.cshtml" />
-    <Content Include="Views\CMS\GrammarView.cshtml" />
-    <Content Include="Views\CMS\TasksView.cshtml" />
-    <Content Include="Views\CMS\TopicView.cshtml" />
+    <Content Include="Views\Admin\AdminPage.cshtml" />
+    <Content Include="Views\Admin\DictionaryView.cshtml" />
+    <Content Include="Views\Admin\GrammarTasksView.cshtml" />
+    <Content Include="Views\Admin\GrammarView.cshtml" />
+    <Content Include="Views\Admin\TopicView.cshtml" />
+    <Content Include="Views\Admin\RecomendationView.cshtml" />
+    <Content Include="Views\Admin\RecomendationListView.cshtml" />
+    <Content Include="Views\CreatingObjects\CreateRecomendationCategory.cshtml" />
+    <Content Include="Views\CreatingObjects\CreateRecomendation.cshtml" />
+    <Content Include="Views\Admin\Answers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Web_Buttons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
