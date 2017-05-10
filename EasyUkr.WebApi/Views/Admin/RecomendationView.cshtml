@@ -43,14 +43,14 @@
                        <div style="width: auto; height: auto" class="col-sm-offset-7">
                            <img src="@Url.Content(item.FileAdress)"/>
                        </div>
-                       <center><a href="@Url.Action("DeleteRecomendationCategory", "CreatingObjects", new {id = item.Id})"><img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/></a></center>
+                       <center><a href="@Url.Action("DeleteRecomendationCategory", "Recomendation", new {id = item.Id})"><img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/></a></center>
                    </div>
                </div>
            </a>
        }
         
     
-            <a href="@Url.Action("CreateRecomendationCategory", "CreatingObjects")">Додати категорію</a>
+            <a href="@Url.Action("CreateRecomendationCategory", "Recomendation")">Додати категорію</a>
         @{
             if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
             {

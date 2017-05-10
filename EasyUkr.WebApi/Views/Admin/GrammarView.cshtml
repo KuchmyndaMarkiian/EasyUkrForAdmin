@@ -45,7 +45,7 @@
                                     <a href="@Url.Action("OpenDoc", "Extension", new {file = item.FileAdress})" target="_blank">Open file here</a>
                                 </div>
                                 <center>
-                                    <a href="@Url.Action("DeleteGrammar", "CreatingObjects", new {id = item.Id})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png"/></a>
+                                    <a href="@Url.Action("DeleteGrammar", "Grammar", new {id = item.Id})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png"/></a>
                                 </center>
                             </div>
                         </a>
@@ -54,7 +54,7 @@
                 }
             }
         </ul>
-        <a href="@Url.Action("CreateGrammar", "CreatingObjects")">Додати граматику</a>
+        <a href="@Url.Action("CreateGrammar", "Grammar")">Додати граматику</a>
         @{
             if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
             {

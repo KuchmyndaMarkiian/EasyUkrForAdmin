@@ -76,6 +76,14 @@
     <Compile Include="Migrations\201705100854590_MigrateDB.Designer.cs">
       <DependentUpon>201705100854590_MigrateDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705101253365_update grammar task.cs" />
+    <Compile Include="Migrations\201705101253365_update grammar task.Designer.cs">
+      <DependentUpon>201705101253365_update grammar task.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101413068_update Recomendation category.cs" />
+    <Compile Include="Migrations\201705101413068_update Recomendation category.Designer.cs">
+      <DependentUpon>201705101413068_update Recomendation category.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +97,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705100854590_MigrateDB.resx">
       <DependentUpon>201705100854590_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101253365_update grammar task.resx">
+      <DependentUpon>201705101253365_update grammar task.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101413068_update Recomendation category.resx">
+      <DependentUpon>201705101413068_update Recomendation category.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

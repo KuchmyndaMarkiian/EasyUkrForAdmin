@@ -56,14 +56,14 @@
                     </div>
                 </div>
                 <center>
-                    <a href="@Url.Action("DeleteWord", "CreatingObjects", new {id = item.Id})">
+                    <a href="@Url.Action("DeleteWord", "Dictionary", new {id = item.Id})">
                         <img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/>
                     </a>
                 </center>
             </div>
         }
     </div>
-    <a href="@Url.Action("CreateWord", "CreatingObjects", new {id = Model.First().ParentTopic.Id})">Додати слово</a>
+    <a href="@Url.Action("CreateWord", "Dictionary", new {id = Model.First().ParentTopic.Id})">Додати слово</a>
     @{
         if ((TempData["WordSuccess"] != null && (bool) TempData["WordSuccess"]) ||(TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
         {

@@ -10,12 +10,12 @@ using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.CustomWebAPI
 {
-    [System.Web.Http.Authorize]
-    [System.Web.Http.RoutePrefix("api/Receive")]
+    [Authorize]
+    [RoutePrefix("api/Receive")]
     public class ReceivingController : ApiController
     {
         // GET api/Recieve/UserInfo
-        [System.Web.Http.Route("UserInfo")]
+        [Route("UserInfo")]
         public UserInfo GetUserInfo()
         {
             var name = User.Identity.Name;
@@ -49,7 +49,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/Topics
-        [System.Web.Http.Route("Topics"), System.Web.Http.AllowAnonymous]
+        [Route("Topics"), AllowAnonymous]
         public List<Topic> GetTopicsResources()
         {
             return new List<Topic>(
@@ -64,12 +64,12 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/Words
-        [System.Web.Http.Route("Words"), System.Web.Http.AllowAnonymous]
+        [Route("Words"), AllowAnonymous]
         public List<Word> GetWordsResources()
         {
             return new List<Word>(
                 DbManager.Instance.Data.WordUkrs.Select(
-                    t => new Word()
+                    t => new Word
                     {
                         Id = t.Id,
                         Text = t.Text,
@@ -78,13 +78,14 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                         TranslateImageId = t.Translates.FirstOrDefault().Id
                     }));
         }
+
         // GET api/Recieve/Grammars
-        [System.Web.Http.Route("Grammars"), System.Web.Http.AllowAnonymous]
+        [Route("Grammars"), AllowAnonymous]
         public List<Grammar> GetGrammarsResources()
         {
             return new List<Grammar>(
                 DbManager.Instance.Data.GrammarTopics.Select(
-                    t => new Grammar()
+                    t => new Grammar
                     {
                         Id = t.Id,
                         Text = t.HeaderUkr,
@@ -92,9 +93,53 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                     }));
         }
 
+        // GET api/Recieve/GrammarTasks
+        [Route("GrammarTasks"), AllowAnonymous]
+        public List<GrammarTask> GetGrammarTasksResources()
+        {
+            return new List<GrammarTask>(
+                DbManager.Instance.Data.GrammarTasks.Select(
+                    t => new GrammarTask
+                    {
+                        Text = t.HeaderUkr,
+                        Translate = t.TranslateEng,
+                        Description = t.Description,
+                        Answers = t.GrammarAnswers
+                            .Select(x => new GrammarAnswer {IsCorrect = x.IsCorrect.Value, Text = x.Answer})
+                            .ToList()
+                    }));
+        }
+
+         // GET api/Recieve/RecomendationCategories
+         [Route("RecomendationCategories"), AllowAnonymous]
+         public List<RecomendationCategory> GetRecomendationCategoriesResources()
+         {
+             return new List<RecomendationCategory>(
+                 DbManager.Instance.Data.RecomendationCategories.Select(
+                     t => new RecomendationCategory
+                     {
+                         Text = t.HeaderUkr,
+                         Translate = t.TranslateEng,
+                         Id = t.Id
+                     }));
+         }
+        // GET api/Recieve/Recomendations
+        [Route("Recomendations"), AllowAnonymous]
+        public List<Recomendation> GetRecomendationsResources()
+        {
+            return new List<Recomendation>(
+                DbManager.Instance.Data.Recomendations.Select(
+                    t => new Recomendation
+                    {
+                        Text = t.HeaderUkr,
+                        Translate = t.TranslateEng,
+                        UrlLink = t.UrlLink,
+                        ParentId = t.ParentCategory.Id
+                    }));
+        }
 
         // GET api/Recieve/GetFile?type={type}%id={id}
-        [System.Web.Http.Route("GetFile"), System.Web.Http.AllowAnonymous]
+        [Route("GetFile"), AllowAnonymous]
         public HttpResponseMessage GetFile(string type, int id)
         {
             string main = AppDomain.CurrentDomain.BaseDirectory;
@@ -119,7 +164,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 {
                     var entity = DbManager.Instance.Data.GrammarTopics.FirstOrDefault(x => x.Id == id);
                     if (entity != null)
-                        file = main+"Content\\Grammar\\" + entity.FileAdress.TrimStart('~');
+                        file = main + "Content\\Grammar\\" + entity.FileAdress.TrimStart('~');
                     break;
                 }
             }

@@ -67,7 +67,7 @@ namespace EasyUkr.WebApi.Controllers.Admin
             var tmp = DbManager.Instance.Data.GrammarTopics.First(x => x.Id == id).GrammarTasks;
             if (tmp.Any())
                 return View(tmp);
-            return RedirectToAction("CreateGrammarTask", "CreatingObjects", new { id = id });
+            return RedirectToAction("CreateGrammarTask", "Grammar", new { id = id });
         }
 
         public ActionResult RecomendationView()
@@ -78,10 +78,10 @@ namespace EasyUkr.WebApi.Controllers.Admin
         [HttpGet]
         public ActionResult RecomendationListView(int? id)
         {
-            var tmp = DbManager.Instance.Data.Recomendations.Where(x => x.ParentCategory.Id == id);
+            var tmp = DbManager.Instance.Data.Recomendations.Where(x => x.ParentCategory.Id == id).ToArray();
             if (tmp.Any())
                 return View(tmp);
-            return RedirectToAction("CreateRecomendation", "CreatingObjects", new {id = id});
+            return RedirectToAction("CreateRecomendation", "Recomendation", new {id = id});
         }
     }
 }

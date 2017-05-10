@@ -1,0 +1,73 @@
+﻿@using System.Diagnostics
+@model EasyUkr.DataAccessLayer.Entities.Grammar.GrammarTask
+
+@{
+    ViewBag.Title = "title";
+}
+<style type="text/css">
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<body>
+<center>
+    <h2>Adding new task</h2>
+    @using (Html.BeginForm("CreateGrammarTask", "Grammar"))
+    {
+        <fieldset>
+            <p>Header UKR</p>
+            @Html.TextBoxFor(x => x.HeaderUkr)
+            <p>Translate ENG</p>
+            @Html.TextBoxFor(x => x.TranslateEng)
+            <p>Description</p>
+            @Html.TextBoxFor(x => x.Description)
+        </fieldset>
+        <br/>
+        <p>Add answer</p>
+        <p>
+            <input type="text" name="answerText" />
+            <br/>
+            <label>Correct?</label>
+            <input type="checkbox" name="answerCheck" />
+            <br />
+            <input type="submit" name="submitEvent" value="Add" />
+        </p>
+        <table>
+            <tr><th>Text</th><th>Is correct</th></tr>
+            @if (Model != null)
+            {
+                foreach (var answer in Model.GrammarAnswers)
+                {
+                    <tr>
+                        <td><center>@answer.Answer</center></td>
+
+                        <td>
+                            <center>
+                                @if (answer.IsCorrect.Value)
+                                {
+                                    <input type="checkbox" disabled="disabled" checked="checked"/>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" disabled="disabled"/>
+                                }
+                            </center>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        <br />
+        <input type="submit" name="submitEvent" value="Save"/>
+    }
+       
+    <div>
+        @Html.ActionLink("Вернуться к списку", "TopicView", "Admin")
+    </div>
+</center>
+</body>
+

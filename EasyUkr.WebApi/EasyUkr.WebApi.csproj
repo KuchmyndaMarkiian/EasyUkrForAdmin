@@ -233,10 +233,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Creating Objects\DictionaryController.cs" />
+    <Compile Include="Controllers\Creating Objects\GrammarController.cs" />
+    <Compile Include="Controllers\Creating Objects\RecomendationController.cs" />
     <Compile Include="Controllers\WebAPI_Stock\AccountController.cs" />
     <Compile Include="Controllers\CustomWebAPI\RecievingController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
-    <Compile Include="Controllers\Admin\CreatingObjectsController.cs" />
     <Compile Include="Controllers\Infrastructure\ExtensionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomWebAPI\UploadController.cs" />
@@ -253,6 +255,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientModels.cs" />
     <Compile Include="Models\RestModels\Grammar.cs" />
+    <Compile Include="Models\RestModels\GrammarTask.cs" />
+    <Compile Include="Models\RestModels\Recomendation.cs" />
+    <Compile Include="Models\RestModels\RecomendationCategory.cs" />
     <Compile Include="Models\RestModels\Topic.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Infrastructure\DbManager.cs" />
@@ -329,10 +334,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\RegistrationView.cshtml" />
     <Content Include="Views\Home\LoginView.cshtml" />
-    <Content Include="Views\CreatingObjects\CreateGrammar.cshtml" />
-    <Content Include="Views\CreatingObjects\CreateTask.cshtml" />
-    <Content Include="Views\CreatingObjects\CreateTopic.cshtml" />
-    <Content Include="Views\CreatingObjects\CreateWord.cshtml" />
+    <Content Include="Views\Grammar\CreateGrammar.cshtml" />
+    <Content Include="Views\Dictionary\CreateTopic.cshtml" />
+    <Content Include="Views\Dictionary\CreateWord.cshtml" />
     <Content Include="Views\Admin\AdminPage.cshtml" />
     <Content Include="Views\Admin\DictionaryView.cshtml" />
     <Content Include="Views\Admin\GrammarTasksView.cshtml" />
@@ -340,9 +344,10 @@
     <Content Include="Views\Admin\TopicView.cshtml" />
     <Content Include="Views\Admin\RecomendationView.cshtml" />
     <Content Include="Views\Admin\RecomendationListView.cshtml" />
-    <Content Include="Views\CreatingObjects\CreateRecomendationCategory.cshtml" />
-    <Content Include="Views\CreatingObjects\CreateRecomendation.cshtml" />
-    <Content Include="Views\Admin\Answers.cshtml" />
+    <Content Include="Views\Recomendation\CreateRecomendationCategory.cshtml" />
+    <Content Include="Views\Recomendation\CreateRecomendation.cshtml" />
+    <Content Include="Views\Grammar\CreateGrammarTask.cshtml" />
+    <Content Include="Views\Grammar\Answers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,13 @@
+﻿@model ICollection<EasyUkr.WebApi.Controllers.Creating_Objects.GrammarController.Answer>
+@{
+    ViewBag.Title = "title";
+}
+@foreach (var answer in Model)
+{
+    <div class="checkbox">
+        <label>
+            
+            <p>@Html.CheckBox("isChecked", answer.IsCorrect) @answer.Text</p>
+        </label>
+        </div>
+}

@@ -1,20 +1,21 @@
-﻿@model EasyUkr.WebApi.Models.ViewModels.Topic
+﻿
+@model EasyUkr.WebApi.Models.ViewModels.Topic
 @{
-    ViewBag.Title = "CreateGrammar";
+    ViewBag.Title = "CreateTopic";
 }
 <body>
 <center>
-    <h2>Adding new recomendation category</h2>
-    @using (Html.BeginForm("CreateGrammar", "CreatingObjects", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    <h2>Додавання нової категорії</h2>
+    @using (Html.BeginForm("CreateTopic", "Dictionary", FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
         <fieldset>
-            <p>Назва граматики</p>
+            <p>Назва категорії</p>
             @Html.TextBoxFor(x => x.Header)
             <p>Переклад</p>
             @Html.TextBoxFor(x => x.Translate)
             <h3>Выберите файл для загрузки</h3>
             <div class="editor-field">
-                <input type="file" name="uploadFile"/>
+                <input type="file" name="uploadImage"/>
             </div>
             <p>
                 <input type="submit" value="Добавить"/>
@@ -22,7 +23,7 @@
         </fieldset>
     }
     <div>
-        @Html.ActionLink("Вернуться к списку", "GrammarView", "Admin")
+        @Html.ActionLink("Вернуться к списку", "TopicView", "Admin")
     </div>
 </center>
 </body>
