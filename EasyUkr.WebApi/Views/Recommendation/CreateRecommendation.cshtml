@@ -1,11 +1,11 @@
-﻿@model EasyUkr.WebApi.Models.ViewModels.Recomendation
+﻿@model EasyUkr.WebApi.Models.ViewModels.Recommendation
 @{
     ViewBag.Title = "CreateGrammar";
 }
 <body>
     <center>
         <h2>Adding new recomendation</h2>
-        @using (Html.BeginForm("CreateRecomendation", "Recomendation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("CreateRecommendation", "Recommendation", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <fieldset>
                 <p>Recomendation header (UKR)</p>
@@ -24,7 +24,7 @@
             </fieldset>
         }
         <div>
-            @Html.ActionLink("Вернуться к списку", "RecomendationListView", "Admin")
+            @Html.ActionLink("Вернуться к списку", "RecommendationListView", "Admin")
         </div>
     </center>
 </body>

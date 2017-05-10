@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using EasyUkr.DataAccessLayer.Entities.Recomendation;
 using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.Admin
@@ -70,18 +69,18 @@ namespace EasyUkr.WebApi.Controllers.Admin
             return RedirectToAction("CreateGrammarTask", "Grammar", new { id = id });
         }
 
-        public ActionResult RecomendationView()
+        public ActionResult RecommendationView()
         {
-            return View(DbManager.Instance.Data.RecomendationCategories);
+            return View(DbManager.Instance.Data.RecommendationCategories);
         }
 
         [HttpGet]
-        public ActionResult RecomendationListView(int? id)
+        public ActionResult RecommendationListView(int? id)
         {
-            var tmp = DbManager.Instance.Data.Recomendations.Where(x => x.ParentCategory.Id == id).ToArray();
+            var tmp = DbManager.Instance.Data.Recommendations.Where(x => x.ParentCategory.Id == id).ToArray();
             if (tmp.Any())
                 return View(tmp);
-            return RedirectToAction("CreateRecomendation", "Recomendation", new {id = id});
+            return RedirectToAction("CreateRecommendation", "Recommendation", new {id = id});
         }
     }
 }

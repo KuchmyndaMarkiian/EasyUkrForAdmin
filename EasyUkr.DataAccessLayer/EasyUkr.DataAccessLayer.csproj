@@ -58,8 +58,8 @@
     <Compile Include="Entities\Grammar\GrammarAnswer.cs" />
     <Compile Include="Entities\Grammar\GrammarTask.cs" />
     <Compile Include="Entities\Grammar\GrammarTopic.cs" />
-    <Compile Include="Entities\Recomendation\Recomendation.cs" />
-    <Compile Include="Entities\Recomendation\RecomendationCategory.cs" />
+    <Compile Include="Entities\Recommendation\Recommendation.cs" />
+    <Compile Include="Entities\Recommendation\RecommendationCategory.cs" />
     <Compile Include="Entities\User\Achievement.cs" />
     <Compile Include="Entities\User\Level.cs" />
     <Compile Include="Entities\Dictionary\TranslateEng.cs" />
@@ -84,6 +84,14 @@
     <Compile Include="Migrations\201705101413068_update Recomendation category.Designer.cs">
       <DependentUpon>201705101413068_update Recomendation category.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705101752225_refactored1.cs" />
+    <Compile Include="Migrations\201705101752225_refactored1.Designer.cs">
+      <DependentUpon>201705101752225_refactored1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101755526_refactored2.cs" />
+    <Compile Include="Migrations\201705101755526_refactored2.Designer.cs">
+      <DependentUpon>201705101755526_refactored2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +111,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705101413068_update Recomendation category.resx">
       <DependentUpon>201705101413068_update Recomendation category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101752225_refactored1.resx">
+      <DependentUpon>201705101752225_refactored1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101755526_refactored2.resx">
+      <DependentUpon>201705101755526_refactored2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

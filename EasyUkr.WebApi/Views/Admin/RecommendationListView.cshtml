@@ -1,4 +1,4 @@
-﻿@model EasyUkr.DataAccessLayer.Entities.Recomendation.Recomendation[]
+﻿@model EasyUkr.DataAccessLayer.Entities.Recommendation.Recommendation[]
 
 @{
     ViewBag.Title = "title";
@@ -60,14 +60,14 @@
                     </div>
                 </div>
                 <center>
-                    <a href="@Url.Action("DeleteRecomendation", "Recomendation", new {id = item.Id})">
+                    <a href="@Url.Action("DeleteRecommendation", "Recommendation", new {id = item.Id})">
                         <img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/>
                     </a>
                 </center>
             </div>
         }
     </div>
-    <a href="@Url.Action("CreateRecomendation", "Recomendation", new {id = Model.First().ParentCategory.Id})">Додати слово</a>
+    <a href="@Url.Action("CreateRecommendation", "Recommendation", new {id = Model.First().ParentCategory.Id})">Додати слово</a>
     @{
         if ((TempData["WordSuccess"] != null && (bool) TempData["WordSuccess"]) ||(TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
         {
@@ -80,7 +80,7 @@
         }
     }
     <div>
-        @Html.ActionLink("Вернуться к списку", "RecomendationView", "Admin")
+        @Html.ActionLink("Вернуться к списку", "RecommendationView", "Admin")
     </div>
 </center>
 </body>

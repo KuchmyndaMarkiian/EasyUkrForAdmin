@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EasyUkr.WebApi.Models.RestModels
 {
-    public class RecomendationCategory
+    public class RecommendationCategory
     {
         public int Id { get; set; }
         public string Text { get; set; }

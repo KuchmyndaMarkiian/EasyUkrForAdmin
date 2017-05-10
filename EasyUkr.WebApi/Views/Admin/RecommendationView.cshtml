@@ -1,4 +1,4 @@
-﻿@model System.Data.Entity.DbSet<EasyUkr.DataAccessLayer.Entities.Recomendation.RecomendationCategory>
+﻿@model System.Data.Entity.DbSet<EasyUkr.DataAccessLayer.Entities.Recommendation.RecommendationCategory>
 
 @{
     ViewBag.Title = "title";
@@ -33,7 +33,7 @@
     <div id="topics" style="background: whitesmoke; border-radius: 15px; border-color: black; width: 400px; height: auto">
        @foreach (var item in Model)
        {
-           <a href="@Url.Action("RecomendationListView", new {id = item.Id})">
+           <a href="@Url.Action("RecommendationListView", new {id = item.Id})">
                <div>
                    <div id="container">
                        <div class="col-sm-7" style="vertical-align: middle">
@@ -43,14 +43,14 @@
                        <div style="width: auto; height: auto" class="col-sm-offset-7">
                            <img src="@Url.Content(item.FileAdress)"/>
                        </div>
-                       <center><a href="@Url.Action("DeleteRecomendationCategory", "Recomendation", new {id = item.Id})"><img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/></a></center>
+                       <center><a href="@Url.Action("DeleteRecommendationCategory", "Recommendation", new {id = item.Id})"><img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/></a></center>
                    </div>
                </div>
            </a>
        }
         
     
-            <a href="@Url.Action("CreateRecomendationCategory", "Recomendation")">Додати категорію</a>
+            <a href="@Url.Action("CreateRecommendationCategory", "Recommendation")">Додати категорію</a>
         @{
             if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
             {

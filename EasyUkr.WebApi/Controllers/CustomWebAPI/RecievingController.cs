@@ -110,27 +110,28 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                     }));
         }
 
-         // GET api/Recieve/RecomendationCategories
-         [Route("RecomendationCategories"), AllowAnonymous]
-         public List<RecomendationCategory> GetRecomendationCategoriesResources()
+         // GET api/Recieve/RecommendationCategories
+         [Route("RecommendationCategories"), AllowAnonymous]
+         public List<RecommendationCategory> GetRecomendationCategoriesResources()
          {
-             return new List<RecomendationCategory>(
-                 DbManager.Instance.Data.RecomendationCategories.Select(
-                     t => new RecomendationCategory
+             return new List<RecommendationCategory>(
+                 DbManager.Instance.Data.RecommendationCategories.Select(
+                     t => new RecommendationCategory
                      {
                          Text = t.HeaderUkr,
                          Translate = t.TranslateEng,
                          Id = t.Id
                      }));
          }
-        // GET api/Recieve/Recomendations
-        [Route("Recomendations"), AllowAnonymous]
-        public List<Recomendation> GetRecomendationsResources()
+        // GET api/Recieve/Recommendations
+        [Route("Recommendations"), AllowAnonymous]
+        public List<Recommendation> GetRecomendationsResources()
         {
-            return new List<Recomendation>(
-                DbManager.Instance.Data.Recomendations.Select(
-                    t => new Recomendation
+            return new List<Recommendation>(
+                DbManager.Instance.Data.Recommendations.Select(
+                    t => new Recommendation
                     {
+                        Id = t.Id,
                         Text = t.HeaderUkr,
                         Translate = t.TranslateEng,
                         UrlLink = t.UrlLink,
@@ -153,9 +154,9 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                         file = main + entity.FileAdress.TrimStart('~');
                     break;
                 }
-                case "recomend":
+                case "recommend":
                 {
-                    var entity = DbManager.Instance.Data.Recomendations.FirstOrDefault(x => x.Id == id);
+                    var entity = DbManager.Instance.Data.Recommendations.FirstOrDefault(x => x.Id == id);
                     if (entity != null)
                         file = main + entity.FileAdress.TrimStart('~');
                     break;

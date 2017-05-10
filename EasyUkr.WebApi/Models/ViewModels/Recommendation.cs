@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EasyUkr.WebApi.Models.ViewModels
 {
-    public class Recomendation
+    public class Recommendation
     {
         public string HeaderUkr { get; set; }
         public string TranslateEng { get; set; }

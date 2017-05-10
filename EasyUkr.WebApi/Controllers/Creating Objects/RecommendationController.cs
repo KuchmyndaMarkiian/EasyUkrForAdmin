@@ -4,26 +4,26 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EasyUkr.DataAccessLayer.Entities.Recomendation;
+using EasyUkr.DataAccessLayer.Entities.Recommendation;
 using EasyUkr.WebApi.Models.ViewModels;
 using EasyUkr.WebApi.MyCode;
-using Recomendation = EasyUkr.WebApi.Models.ViewModels.Recomendation;
+using Recommendation = EasyUkr.WebApi.Models.ViewModels.Recommendation;
 
 namespace EasyUkr.WebApi.Controllers.Creating_Objects
 {
-    public class RecomendationController : Controller
+    public class RecommendationController : Controller
     {
         #region RECOMENDATIONS
 
         #region Category
 
-        public ActionResult CreateRecomendationCategory()
+        public ActionResult CreateRecommendationCategory()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateRecomendationCategory(Topic model, HttpPostedFileBase uploadFile)
+        public ActionResult CreateRecommendationCategory(Topic model, HttpPostedFileBase uploadFile)
         {
             TempData["TopicSuccess"] = false;
             if (ModelState.IsValid && uploadFile != null)
@@ -37,40 +37,40 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
                 path += '\\' + model.File.FileName;
                 file.SaveAs(path);
 
-                RecomendationCategory recomendation = new RecomendationCategory
+                RecommendationCategory recomendation = new RecommendationCategory
                 {
                     HeaderUkr = model.Header,
                     TranslateEng = model.Translate,
                     FileAdress = "~" + Static.RecomendationPath +
                                  model.Translate + "\\" + file.FileName
                 };
-                DbManager.Instance.Data.RecomendationCategories.Add(recomendation);
+                DbManager.Instance.Data.RecommendationCategories.Add(recomendation);
                 DbManager.Instance.Data.SaveChanges();
 
                 TempData["TopicSuccess"] = true;
-                return RedirectToAction("RecomendationView", "Admin");
+                return RedirectToAction("RecommendationView", "Admin");
             }
 
             return View(model);
         }
         [HttpGet]
-        public ActionResult DeleteRecomendationCategory(int id)
+        public ActionResult DeleteRecommendationCategory(int id)
         {
             TempData["DelSuccess"] = false;
-            var tag = DbManager.Instance.Data.RecomendationCategories.First(x => x.Id == id);
-            DbManager.Instance.Data.Recomendations.RemoveRange(tag.Recomendations);
+            var tag = DbManager.Instance.Data.RecommendationCategories.First(x => x.Id == id);
+            DbManager.Instance.Data.Recommendations.RemoveRange(tag.Recommendations);
             int id1 = tag.Id;
-            DbManager.Instance.Data.RecomendationCategories.Remove(tag);
+            DbManager.Instance.Data.RecommendationCategories.Remove(tag);
             DbManager.Instance.Data.SaveChanges();
             TempData["DelSuccess"] = true;
-            return RedirectToAction("RecomendationView", "Admin", new { id = id1 });
+            return RedirectToAction("RecommendationView", "Admin", new { id = id1 });
         }
 
         #endregion
 
         #region Item
         [HttpGet]
-        public ActionResult CreateRecomendation(int? id)
+        public ActionResult CreateRecommendation(int? id)
         {
             var httpCookie = HttpContext.Response.Cookies["topic"];
             if (httpCookie != null)
@@ -78,13 +78,13 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
             return View();
         }
         [HttpPost]
-        public ActionResult CreateRecomendation(Recomendation model, HttpPostedFileBase uploadFile)
+        public ActionResult CreateRecommendation(Recommendation model, HttpPostedFileBase uploadFile)
         {
             TempData["TopicSuccess"] = false;
             if (ModelState.IsValid && uploadFile != null)
             {
                 int id = int.Parse(HttpContext.Request.Cookies["topic"].Value);
-                var foundedCategory = DbManager.Instance.Data.RecomendationCategories.FirstOrDefault(x => x.Id == id);
+                var foundedCategory = DbManager.Instance.Data.RecommendationCategories.FirstOrDefault(x => x.Id == id);
                 if (foundedCategory != null)
                 {
                     var file = uploadFile;
@@ -93,7 +93,7 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
                     Directory.CreateDirectory(path);
                     path += '\\' + file.FileName;
                     file.SaveAs(path);
-                    var recomendation = new DataAccessLayer.Entities.Recomendation.Recomendation
+                    var recomendation = new DataAccessLayer.Entities.Recommendation.Recommendation
                     {
                         HeaderUkr = model.HeaderUkr,
                         TranslateEng = model.TranslateEng,
@@ -102,31 +102,31 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
                         UrlLink = model.UrlLink,
                         ParentCategory = foundedCategory
                     };
-                    foundedCategory.Recomendations.Add(recomendation);
-                    DbManager.Instance.Data.Recomendations.Add(recomendation);
+                    foundedCategory.Recommendations.Add(recomendation);
+                    DbManager.Instance.Data.Recommendations.Add(recomendation);
 
 
                     DbManager.Instance.Data.SaveChanges();
 
                     TempData["redirectedTopicId"] = id;
                     TempData["WordSuccess"] = true;
-                    return RedirectToAction("RecomendationListView", "Admin", new { id = id });
+                    return RedirectToAction("RecommendationListView", "Admin", new { id = id });
                 }
             }
             return View(model);
         }
         [HttpGet]
-        public ActionResult DeleteRecomendation(int id)
+        public ActionResult DeleteRecommendation(int id)
         {
             TempData["DelSuccess"] = false;
-            var recomendation = DbManager.Instance.Data.Recomendations.FirstOrDefault(x => x.Id == id);
+            var recomendation = DbManager.Instance.Data.Recommendations.FirstOrDefault(x => x.Id == id);
             if (recomendation != null)
             {
                 int id1 = recomendation.ParentCategory.Id;
-                DbManager.Instance.Data.Recomendations.Remove(recomendation);
+                DbManager.Instance.Data.Recommendations.Remove(recomendation);
                 DbManager.Instance.Data.SaveChanges();
                 TempData["DelSuccess"] = true;
-                return RedirectToAction("RecomendationListView", "Admin", new { id = id1 });
+                return RedirectToAction("RecommendationListView", "Admin", new { id = id1 });
             }
             return HttpNotFound();
         }

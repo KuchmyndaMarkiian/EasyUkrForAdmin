@@ -4,7 +4,7 @@ using System.Linq;
 using EasyUkr.DataAccessLayer.Entities;
 using EasyUkr.DataAccessLayer.Entities.Dictionary;
 using EasyUkr.DataAccessLayer.Entities.Grammar;
-using EasyUkr.DataAccessLayer.Entities.Recomendation;
+using EasyUkr.DataAccessLayer.Entities.Recommendation;
 using EasyUkr.DataAccessLayer.Entities.User;
 using EasyUkr.DataAccessLayer.Initializer;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -63,8 +63,8 @@ namespace EasyUkr.DataAccessLayer.Contexts
         public DbSet<TranslateEng> TranslateEngs { get; set; }
         public DbSet<WordUkr> WordUkrs { get; set; }
         public DbSet<WordTopic> WordTopics { get; set; }
-        public DbSet<Recomendation> Recomendations { get; set; }
-        public DbSet<RecomendationCategory> RecomendationCategories { get; set; }
+        public DbSet<Recommendation> Recommendations { get; set; }
+        public DbSet<RecommendationCategory> RecommendationCategories { get; set; }
 
         public enum LevelUkr
         {

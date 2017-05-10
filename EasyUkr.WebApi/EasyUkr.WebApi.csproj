@@ -235,7 +235,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Creating Objects\DictionaryController.cs" />
     <Compile Include="Controllers\Creating Objects\GrammarController.cs" />
-    <Compile Include="Controllers\Creating Objects\RecomendationController.cs" />
+    <Compile Include="Controllers\Creating Objects\RecommendationController.cs" />
     <Compile Include="Controllers\WebAPI_Stock\AccountController.cs" />
     <Compile Include="Controllers\CustomWebAPI\RecievingController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
@@ -256,8 +256,8 @@
     <Compile Include="Models\ClientModels.cs" />
     <Compile Include="Models\RestModels\Grammar.cs" />
     <Compile Include="Models\RestModels\GrammarTask.cs" />
-    <Compile Include="Models\RestModels\Recomendation.cs" />
-    <Compile Include="Models\RestModels\RecomendationCategory.cs" />
+    <Compile Include="Models\RestModels\Recommendation.cs" />
+    <Compile Include="Models\RestModels\RecommendationCategory.cs" />
     <Compile Include="Models\RestModels\Topic.cs" />
     <Compile Include="Models\UploadedFile.cs" />
     <Compile Include="Infrastructure\DbManager.cs" />
@@ -265,7 +265,7 @@
     <Compile Include="Models\RestModels\UserInfo.cs" />
     <Compile Include="Models\RestModels\Word.cs" />
     <Compile Include="Models\ViewModels\AnswerModel.cs" />
-    <Compile Include="Models\ViewModels\Recomendation.cs" />
+    <Compile Include="Models\ViewModels\Recommendation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -342,10 +342,10 @@
     <Content Include="Views\Admin\GrammarTasksView.cshtml" />
     <Content Include="Views\Admin\GrammarView.cshtml" />
     <Content Include="Views\Admin\TopicView.cshtml" />
-    <Content Include="Views\Admin\RecomendationView.cshtml" />
-    <Content Include="Views\Admin\RecomendationListView.cshtml" />
-    <Content Include="Views\Recomendation\CreateRecomendationCategory.cshtml" />
-    <Content Include="Views\Recomendation\CreateRecomendation.cshtml" />
+    <Content Include="Views\Admin\RecommendationView.cshtml" />
+    <Content Include="Views\Admin\RecommendationListView.cshtml" />
+    <Content Include="Views\Recommendation\CreateRecommendationCategory.cshtml" />
+    <Content Include="Views\Recommendation\CreateRecommendation.cshtml" />
     <Content Include="Views\Grammar\CreateGrammarTask.cshtml" />
     <Content Include="Views\Grammar\Answers.cshtml" />
   </ItemGroup>
