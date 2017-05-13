@@ -10,6 +10,7 @@ using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.Creating_Objects
 {
+    [Authorize(Roles = "AppAdmin")]
     public class DictionaryController:Controller
     {
         #region TOPIC

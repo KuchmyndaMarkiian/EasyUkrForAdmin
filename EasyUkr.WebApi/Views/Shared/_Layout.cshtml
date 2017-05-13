@@ -1,15 +1,17 @@
-﻿
+﻿@using EasyUkr.WebApi.Infrastructure.SessionManager
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -24,12 +26,19 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                <li>
-                    @Html.ActionLink("Registration", "RegistrationView", "Home", new { area = "" }, null)
-                </li>
-                <li>@Html.ActionLink("Log In", "LoginView", "Home", new { area = "" }, null)</li>
-                <li>@Html.ActionLink("Admin Panel", "AdminPage", "Admin", new { area = "" }, null)</li>
+                @if (AuthenticationMethods.IsAuthorized)
+                {
+                    <li>@Html.ActionLink("API", "Index", "Help", new {area = ""}, null)</li>
+                    <!--<li>
+                        @Html.ActionLink("Registration", "RegistrationView", "Home", new {area = ""}, null)
+                    </li>-->
+                    <li>@Html.ActionLink("Admin Panel", "AdminPage", "Admin", new {area = ""}, null)</li>
+                    <li><a href="" type="submit" id="logOut">Log Out</a></li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Log In", "LoginView", "Home", new {area = ""}, null)</li>
+                }
             </ul>
         </div>
     </div>
@@ -44,6 +53,49 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+<script type="text/javascript">
+    /*var modal = document.getElementById('myModalError');
+    var btn = document.getElementById("submitLogin");
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }*/
+
+    $(function() {
+        //...........................
+
+        var tokenKey = "tokenInfo";
+
+
+        $('#logOut').click(function(e) {
+            e.preventDefault();
+            var token = sessionStorage.getItem(tokenKey);
+            $.ajax({
+                type: 'POST',
+                url: '/api/Account/Logout',
+                headers: { 'authorization': 'bearer  ' + token },
+                success: function(data) {
+                    sessionStorage.removeItem(tokenKey);
+                    //alert("+");
+                    window.location.href = '@Url.Action("LoginView", "Home")';
+                    
+                },
+                error: function(xhr, status, p3) {
+                    /*btn.onclick = function() {
+                        modal.style.display = "block";
+                    }*/
+                    alert("-");
+                }
+            });
+
+        });
+    });
+</script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

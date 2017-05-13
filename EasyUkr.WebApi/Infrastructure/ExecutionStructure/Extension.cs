@@ -1,4 +1,6 @@
-﻿using EasyUkr.DataAccessLayer.Entities.User;
+﻿using System.Linq;
+using EasyUkr.DataAccessLayer.Contexts;
+using EasyUkr.DataAccessLayer.Entities.User;
 using EasyUkr.WebApi.Models;
 
 namespace EasyUkr.WebApi.Infrastructure.ExecutionStructure
@@ -7,6 +9,7 @@ namespace EasyUkr.WebApi.Infrastructure.ExecutionStructure
     {
         public static User ConvetToUser(this RegisterBindingModel model)
         {
+           
             var user = new User
             {
                 Name = model.Name,

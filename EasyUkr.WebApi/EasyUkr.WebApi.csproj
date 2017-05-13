@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>EasyUkr.WebApi.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>EasyUkr.WebApi.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EasyUkr.DataAccessLayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -242,7 +244,6 @@
     <Compile Include="Controllers\Infrastructure\ExtensionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomWebAPI\UploadController.cs" />
-    <Compile Include="Controllers\WebAPI_Stock\ValuesController.cs" />
     <Compile Include="Infrastructure\ExecutionStructure\Data.cs" />
     <Compile Include="Infrastructure\ExecutionStructure\Extension.cs" />
     <Compile Include="Infrastructure\ExecutionStructure\CustomMultipartFormDataStreamProvider.cs" />
@@ -251,6 +252,7 @@
     </Compile>
     <Compile Include="Infrastructure\HTMLHelpers\Helpers.cs" />
     <Compile Include="Infrastructure\ImageDownloader.cs" />
+    <Compile Include="Infrastructure\SessionManager\AuthenticationMethods.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientModels.cs" />
@@ -306,6 +308,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="EasyUkr.WebApi.ruleset" />
     <None Include="Properties\PublishProfiles\easyukr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

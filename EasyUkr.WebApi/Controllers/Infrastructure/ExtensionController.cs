@@ -11,8 +11,10 @@ namespace EasyUkr.WebApi.Controllers.Infrastructure
         [HttpGet]
         public ActionResult OpenDoc(string file)
         {
-            var stream = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + '\\' + Static.GrammarPath+"\\"+file);
-            return File(stream.BaseStream, $"{file}");
+            using (var stream = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + '\\' + Static.GrammarPath + "\\" + file))
+            {
+                return File(stream.BaseStream, $"{file}");
+            }
         }
         [HttpPost]
         public ActionResult OpenDoc()

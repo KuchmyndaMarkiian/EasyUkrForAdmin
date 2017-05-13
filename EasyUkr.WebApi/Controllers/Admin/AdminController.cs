@@ -6,19 +6,12 @@ using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.Admin
 {
+    [Authorize(Roles = "AppAdmin")]
     public class AdminController : Controller
     {
         public ActionResult AdminPage()
         {
-            /*string v = User.Identity.GetUserName();
-            if (!string.IsNullOrEmpty(v))
-            {
-                var user = DbManager.Instance.Data.Users.FirstOrDefault(x => x.UserName==v);
-                if (user != null)
-                    return View();
-            }
-            return HttpNotFound();*/
-            return View();
+           return View();
         }
 
         public ActionResult TopicView()

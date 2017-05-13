@@ -11,6 +11,7 @@ using Recommendation = EasyUkr.WebApi.Models.ViewModels.Recommendation;
 
 namespace EasyUkr.WebApi.Controllers.Creating_Objects
 {
+    [Authorize(Roles = "AppAdmin")]
     public class RecommendationController : Controller
     {
         #region RECOMENDATIONS

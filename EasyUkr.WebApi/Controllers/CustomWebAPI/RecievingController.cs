@@ -4,18 +4,20 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Mvc;
 using EasyUkr.WebApi.Infrastructure;
 using EasyUkr.WebApi.Models.RestModels;
 using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.CustomWebAPI
 {
-    [Authorize]
-    [RoutePrefix("api/Receive")]
+    [System.Web.Http.Authorize]
+    [System.Web.Http.RoutePrefix("api/Receive"),
+        ValidateAntiForgeryToken]
     public class ReceivingController : ApiController
     {
         // GET api/Recieve/UserInfo
-        [Route("UserInfo")]
+        [System.Web.Http.Route("UserInfo")]
         public UserInfo GetUserInfo()
         {
             var name = User.Identity.Name;
@@ -28,7 +30,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 DateOfBirth = founded.DateOfBirth,
                 Nickname = founded.UserName,
                 Email = founded.Email,
-                Level = founded.Level.Text,
+                Level = DbManager.Instance.Data.Levels.FirstOrDefault(x=>x.LevelHeader==founded.Level).Text,
                 Name = founded.Name,
                 Score = founded.Score,
                 Surname = founded.Surname,
@@ -37,7 +39,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/UserAvatar
-        [Route("UserAvatar")]
+        [System.Web.Http.Route("UserAvatar")]
         public HttpResponseMessage GetAvatar()
         {
             var name = User.Identity.Name;
@@ -50,7 +52,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/Topics
-        [Route("Topics"), AllowAnonymous]
+        [System.Web.Http.Route("Topics"), System.Web.Http.AllowAnonymous]
         public List<Topic> GetTopicsResources()
         {
             return new List<Topic>(
@@ -65,7 +67,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/Words
-        [Route("Words"), AllowAnonymous]
+        [System.Web.Http.Route("Words"), System.Web.Http.AllowAnonymous]
         public List<Word> GetWordsResources()
         {
             return new List<Word>(
@@ -81,7 +83,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/Grammars
-        [Route("Grammars"), AllowAnonymous]
+        [System.Web.Http.Route("Grammars"), System.Web.Http.AllowAnonymous]
         public List<Grammar> GetGrammarsResources()
         {
             return new List<Grammar>(
@@ -95,7 +97,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/GrammarTasks
-        [Route("GrammarTasks"), AllowAnonymous]
+        [System.Web.Http.Route("GrammarTasks"), System.Web.Http.AllowAnonymous]
         public List<GrammarTask> GetGrammarTasksResources()
         {
             return new List<GrammarTask>(
@@ -112,7 +114,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
          // GET api/Recieve/RecommendationCategories
-         [Route("RecommendationCategories"), AllowAnonymous]
+         [System.Web.Http.Route("RecommendationCategories"), System.Web.Http.AllowAnonymous]
          public List<RecommendationCategory> GetRecomendationCategoriesResources()
          {
              return new List<RecommendationCategory>(
@@ -125,7 +127,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                      }));
          }
         // GET api/Recieve/Recommendations
-        [Route("Recommendations"), AllowAnonymous]
+        [System.Web.Http.Route("Recommendations"), System.Web.Http.AllowAnonymous]
         public List<Recommendation> GetRecomendationsResources()
         {
             return new List<Recommendation>(
@@ -141,7 +143,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
         }
 
         // GET api/Recieve/GetFile?type={type}%id={id}
-        [Route("GetFile"), AllowAnonymous]
+        [System.Web.Http.Route("GetFile"), System.Web.Http.AllowAnonymous]
         public HttpResponseMessage GetFile(string type, int id)
         {
             string main = AppDomain.CurrentDomain.BaseDirectory;

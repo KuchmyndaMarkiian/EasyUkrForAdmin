@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 using EasyUkr.DataAccessLayer.Entities.User;
 using EasyUkr.WebApi.Infrastructure.ExecutionStructure;
 using EasyUkr.WebApi.Models;
@@ -45,33 +47,14 @@ namespace EasyUkr.WebApi.Controllers.WebAPI_Stock
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
-
-        /*// GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoAndroid GetUserInfo()
-        {
-            var name = User.Identity.Name;
-            var founded = DbManager.Instance.Data.Users.FirstOrDefault(x => x.UserName == name);
-            if (founded == null)
-                return null;
-
-            return new UserInfoAndroid
-            {
-                DateOfBirth = founded.DateOfBirth,
-                Level = founded.Level.Text,
-                Name = founded.Name,
-                Score = founded.Score,
-                Surname = founded.Surname
-            };
-        }*/
-
+        
+        //todo need fix
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-            return Ok();
+            return Ok("Logout");
         }
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
@@ -323,28 +306,26 @@ namespace EasyUkr.WebApi.Controllers.WebAPI_Stock
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            /*if (!Data.FromClient)
-            {
-                model.Avatar = Data.File();
-            }*/
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Wrong data");
             }
             try
             {
                 var user = model.ConvetToUser();
-            
+
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
                 if (!result.Succeeded)
                 {
-                    return GetErrorResult(result);
+                    return new BadRequestErrorMessageResult(string.Join("\n", result.Errors), this);
                 }
             }
             catch (Exception e)
-            { }
-            return Ok();
+            {
+                 return new BadRequestErrorMessageResult(e.Message, this);
+            }
+            return Ok("Registered");
         }
         
 

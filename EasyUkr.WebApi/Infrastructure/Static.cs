@@ -3,9 +3,8 @@ namespace EasyUkr.WebApi.MyCode
 {
     public static class Static
     {
-        //public static EasyUkrDbContext Data = new EasyUkrDbContext();
-        public static string GrammarPath="\\Content\\Grammar\\";
-        public static string RecomendationPath = "\\Content\\Recomendation\\";
-        public static string IconPath= "Content\\Icons\\Сategories";
+        public static readonly string GrammarPath="\\Content\\Grammar\\";
+        public static readonly string RecomendationPath = "\\Content\\Recomendation\\";
+        public static readonly string IconPath= "Content\\Icons\\Сategories";
     }
 }

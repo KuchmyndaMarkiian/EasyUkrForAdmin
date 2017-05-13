@@ -10,6 +10,5 @@ namespace EasyUkr.DataAccessLayer.Entities.User
         public string Text { get; set; }
         public EasyUkrDbContext.LevelUkr LevelHeader { get; set; }
         public int MinScore { get; set; }
-        public virtual ICollection<User> Users { get; set; } = new HashSet<User>();
     }
 }

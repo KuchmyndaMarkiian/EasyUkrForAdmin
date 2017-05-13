@@ -17,9 +17,7 @@ namespace EasyUkr.DataAccessLayer.Contexts
         public EasyUkrDbContext()
             : base("name = EasyUkrNew", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new EasyUkrInitializer());
-
-           
+            Database.SetInitializer(new EasyUkrInitializer("Admin",".EasyUkr17"));
         }
 
         public static EasyUkrDbContext Create()
@@ -28,32 +26,7 @@ namespace EasyUkr.DataAccessLayer.Contexts
         }
 
         #region Entities
-
-        public override IDbSet<User> Users
-        {
-            get
-            {
-                try
-                {
-                    if (base.Users.Any())
-                    {
-                        var list = base.Users.Where(x => x.Level == null);
-                        foreach (var user in list)
-                        {
-                            user.Level = Levels.FirstOrDefault(x => x.LevelHeader == LevelUkr.Beginner);
-                        }
-                        SaveChanges();
-                    }
-                }
-                catch
-                {
-                    // ignored
-                }
-                return base.Users;
-            }
-            set => base.Users = value;
-        }
-
+        
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<UserHistory> Histories { get; set; }
@@ -96,7 +69,6 @@ namespace EasyUkr.DataAccessLayer.Contexts
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<UserHistory>().HasRequired(u => u.User).WithMany(h => h.Histories);
-            modelBuilder.Entity<User>().HasOptional(u => u.Level).WithMany(l => l.Users);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Achievements)
@@ -143,12 +115,10 @@ namespace EasyUkr.DataAccessLayer.Contexts
             modelBuilder.Entity<GrammarTask>().HasMany(g => g.GrammarAnswers).WithRequired(a => a.GrammarTask);
 
             #endregion
-
             
-
             base.OnModelCreating(modelBuilder);
-        }
 
-        
+            modelBuilder.Entity<User>().ToTable("dbo.Users");
+        }
     }
 }

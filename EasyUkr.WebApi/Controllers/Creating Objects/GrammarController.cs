@@ -10,6 +10,7 @@ using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.Creating_Objects
 {
+    [Authorize(Roles = "AppAdmin")]
     public class GrammarController : Controller
     {
         #region GRAMMAR
@@ -86,8 +87,6 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
                     Answer = answerText,
                     IsCorrect = answerCheck == "on"
                 });
-                answerText = "";
-                answerCheck = null;
                 foreach (var vari in _answers)
                 {
                     model.GrammarAnswers.Add(vari);

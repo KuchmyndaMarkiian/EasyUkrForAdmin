@@ -33,33 +33,6 @@ namespace EasyUkr.WebApi.HTMLHelpers
         #endregion
 
         #region List For Model
-
-        /*public static MvcHtmlString List(this HtmlHelper html, Answer[] answers)
-        {
-            TagBuilder div = new TagBuilder("div");
-            div.MergeAttribute("class", "list-group");
-            var innerBuilder=new StringBuilder();
-            for (var index = 0; index < answers.Length; index++) //намутити в рядок!!!!
-            {
-                var item = answers[index];
-                innerBuilder.Append("<span>");
-                innerBuilder.Append("<p>" + item.GetContent() + "</p>");
-                innerBuilder.Append(html.CheckBox(nameof(answers)+$"[{index}]", item.GetAnswer()));
-                innerBuilder.Append("</span><br/>");
-            }
-
-            div.InnerHtml = innerBuilder.ToString();
-            return MvcHtmlString.Create(div.ToString());
-        }
-
-        /*public static MvcHtmlString ListFor<TModel, TProperty>(this HtmlHelper htmlHelper,
-            Expression<Func<TModel, TProperty>> expression)
-        {
-            var name = ExpressionHelper.GetExpressionText(expression);
-            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            return null;
-        }
-        */
         #endregion
 
 
