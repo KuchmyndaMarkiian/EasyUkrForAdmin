@@ -7,13 +7,13 @@ namespace EasyUkr.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class refactored2 : IMigrationMetadata
+    public sealed partial class refactored4 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(refactored2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(refactored4));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705101755526_refactored2"; }
+            get { return "201705131104195_refactored 4"; }
         }
         
         string IMigrationMetadata.Source

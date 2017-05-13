@@ -20,12 +20,12 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
         }
 
         [HttpPost]
-        public ActionResult CreateGrammar(Topic model, HttpPostedFileBase uploadFile)
+        public ActionResult CreateGrammar(Topic model, HttpPostedFileBase uploadDoc)
         {
             TempData["TopicSuccess"] = false;
-            if (ModelState.IsValid && uploadFile != null)
+            if (ModelState.IsValid && uploadDoc != null)
             {
-                model.File = uploadFile;
+                model.File = uploadDoc;
 
                 var file = model.File;
                 var path = AppDomain.CurrentDomain.BaseDirectory + '\\' + Static.GrammarPath;

@@ -17,20 +17,21 @@ namespace EasyUkr.DataAccessLayer.Initializer
 
             context.Levels.AddRange(new[]
             {
-                new Level {MinScore = 0, Text = "Beginner"},
+                new Level {MinScore = 0, Text = "Beginner",LevelHeader = EasyUkrDbContext.LevelUkr.Beginner},
                 new Level
                 {
                     MinScore = 75,
-                    Text = "Pre Intermediate"
+                    Text = "Pre Intermediate",LevelHeader = EasyUkrDbContext.LevelUkr.PreIntermediate
                 },
-                new Level {MinScore = 200, Text = "Intermediate"},
+                new Level {MinScore = 200, Text = "Intermediate",LevelHeader = EasyUkrDbContext.LevelUkr.Intermediate},
                 new Level
                 {
                     MinScore = 500,
                     Text = "Upper Intermediate"
+                    ,LevelHeader = EasyUkrDbContext.LevelUkr.UpperIntermediate
                 },
-                new Level {MinScore = 1000, Text = "Advance"},
-                new Level {MinScore = 2000, Text = "Pro"}
+                new Level {MinScore = 1000, Text = "Advance",LevelHeader = EasyUkrDbContext.LevelUkr.Advance},
+                new Level {MinScore = 2000, Text = "Pro",LevelHeader = EasyUkrDbContext.LevelUkr.Pro}
             });
             context.SaveChanges();
             #endregion

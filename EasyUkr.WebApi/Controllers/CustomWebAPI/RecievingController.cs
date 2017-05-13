@@ -31,7 +31,8 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 Level = founded.Level.Text,
                 Name = founded.Name,
                 Score = founded.Score,
-                Surname = founded.Surname
+                Surname = founded.Surname,
+                IsTested = founded.IsTested
             };
         }
 
@@ -157,6 +158,13 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 case "recommend":
                 {
                     var entity = DbManager.Instance.Data.Recommendations.FirstOrDefault(x => x.Id == id);
+                    if (entity != null)
+                        file = main + entity.FileAdress.TrimStart('~');
+                    break;
+                }
+                case "recommendc":
+                {
+                    var entity = DbManager.Instance.Data.RecommendationCategories.FirstOrDefault(x => x.Id == id);
                     if (entity != null)
                         file = main + entity.FileAdress.TrimStart('~');
                     break;

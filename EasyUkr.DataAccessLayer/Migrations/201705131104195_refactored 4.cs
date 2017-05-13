@@ -3,7 +3,7 @@ namespace EasyUkr.DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class refactored4 : DbMigration
     {
         public override void Up()
         {
@@ -25,7 +25,8 @@ namespace EasyUkr.DataAccessLayer.Migrations
                         Name = c.String(),
                         Surname = c.String(),
                         DateOfBirth = c.DateTime(nullable: false),
-                        Score = c.Int(),
+                        Score = c.Int(nullable: false),
+                        IsTested = c.Boolean(nullable: false),
                         Avatar = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -126,6 +127,7 @@ namespace EasyUkr.DataAccessLayer.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         HeaderUkr = c.String(),
                         TranslateEng = c.String(),
+                        Description = c.String(),
                         GrammarTopic_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -144,17 +146,18 @@ namespace EasyUkr.DataAccessLayer.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.RecomendationCategories",
+                "dbo.RecommendationCategories",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         HeaderUkr = c.String(),
                         TranslateEng = c.String(),
+                        FileAdress = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Recomendations",
+                "dbo.Recommendations",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -165,7 +168,7 @@ namespace EasyUkr.DataAccessLayer.Migrations
                         ParentCategory_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.RecomendationCategories", t => t.ParentCategory_Id, cascadeDelete: true)
+                .ForeignKey("dbo.RecommendationCategories", t => t.ParentCategory_Id, cascadeDelete: true)
                 .Index(t => t.ParentCategory_Id);
             
             CreateTable(
@@ -234,7 +237,7 @@ namespace EasyUkr.DataAccessLayer.Migrations
             DropForeignKey("dbo.TranslateEngs", "ParentWord_Id", "dbo.WordUkrs");
             DropForeignKey("dbo.WordUkrs", "ParentTopic_Id", "dbo.WordTopics");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Recomendations", "ParentCategory_Id", "dbo.RecomendationCategories");
+            DropForeignKey("dbo.Recommendations", "ParentCategory_Id", "dbo.RecommendationCategories");
             DropForeignKey("dbo.GrammarTasks", "GrammarTopic_Id", "dbo.GrammarTopics");
             DropForeignKey("dbo.GrammarAnswers", "GrammarTask_Id", "dbo.GrammarTasks");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -249,7 +252,7 @@ namespace EasyUkr.DataAccessLayer.Migrations
             DropIndex("dbo.WordUkrs", new[] { "ParentTopic_Id" });
             DropIndex("dbo.TranslateEngs", new[] { "ParentWord_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Recomendations", new[] { "ParentCategory_Id" });
+            DropIndex("dbo.Recommendations", new[] { "ParentCategory_Id" });
             DropIndex("dbo.GrammarTasks", new[] { "GrammarTopic_Id" });
             DropIndex("dbo.GrammarAnswers", new[] { "GrammarTask_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -264,8 +267,8 @@ namespace EasyUkr.DataAccessLayer.Migrations
             DropTable("dbo.WordUkrs");
             DropTable("dbo.TranslateEngs");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Recomendations");
-            DropTable("dbo.RecomendationCategories");
+            DropTable("dbo.Recommendations");
+            DropTable("dbo.RecommendationCategories");
             DropTable("dbo.GrammarTopics");
             DropTable("dbo.GrammarTasks");
             DropTable("dbo.GrammarAnswers");

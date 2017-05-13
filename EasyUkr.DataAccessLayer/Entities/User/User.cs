@@ -23,7 +23,8 @@ namespace EasyUkr.DataAccessLayer.Entities.User
         public virtual string Name { get; set; }
         public virtual string Surname { get; set; }
         public virtual DateTime DateOfBirth { get; set; }
-        public virtual int? Score { get; set; }
+        public virtual int Score { get; set; } = 0;
+        public virtual bool IsTested { get; set; } = false;
         public virtual string Avatar { get; set; }
         public virtual Level Level { get; set; }
         public virtual ICollection<UserHistory> Histories { get; set; } = new HashSet<UserHistory>();

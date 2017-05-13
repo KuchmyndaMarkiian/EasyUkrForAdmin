@@ -10,7 +10,6 @@ namespace EasyUkr.DataAccessLayer.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "EasyUkr.DataAccessLayer.Contexts.EasyUkrDbContext";
         }
 
         protected override void Seed(EasyUkr.DataAccessLayer.Contexts.EasyUkrDbContext context)

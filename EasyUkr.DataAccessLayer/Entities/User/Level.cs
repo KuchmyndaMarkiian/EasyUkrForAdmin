@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using EasyUkr.DataAccessLayer.Contexts;
 
 namespace EasyUkr.DataAccessLayer.Entities.User

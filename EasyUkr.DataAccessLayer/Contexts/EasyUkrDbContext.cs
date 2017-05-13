@@ -68,12 +68,12 @@ namespace EasyUkr.DataAccessLayer.Contexts
 
         public enum LevelUkr
         {
-            Beginner,
-            PreIntermediate,
-            Intermediate,
-            UpperIntermediate,
-            Advance,
-            Pro
+            Beginner=1,
+            PreIntermediate=2,
+            Intermediate=3,
+            UpperIntermediate=4,
+            Advance=5,
+            Pro=6
         }
 
         #endregion
