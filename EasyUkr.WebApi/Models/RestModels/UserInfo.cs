@@ -2,7 +2,7 @@
 
 namespace EasyUkr.WebApi.Models.RestModels
 {
-    //Get user account
+    //Get/post user account
     public class UserInfo
     {
         public string Name { get; set; }

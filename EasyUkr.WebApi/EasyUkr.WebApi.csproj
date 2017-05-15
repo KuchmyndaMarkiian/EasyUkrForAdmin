@@ -238,8 +238,9 @@
     <Compile Include="Controllers\Creating Objects\DictionaryController.cs" />
     <Compile Include="Controllers\Creating Objects\GrammarController.cs" />
     <Compile Include="Controllers\Creating Objects\RecommendationController.cs" />
+    <Compile Include="Controllers\CustomWebAPI\UserManagingController.cs" />
     <Compile Include="Controllers\WebAPI_Stock\AccountController.cs" />
-    <Compile Include="Controllers\CustomWebAPI\RecievingController.cs" />
+    <Compile Include="Controllers\CustomWebAPI\TramsmitingController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Infrastructure\ExtensionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
