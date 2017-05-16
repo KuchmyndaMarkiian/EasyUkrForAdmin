@@ -48,7 +48,6 @@ namespace EasyUkr.WebApi.Controllers.WebAPI_Stock
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
         
-        //todo need fix
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()

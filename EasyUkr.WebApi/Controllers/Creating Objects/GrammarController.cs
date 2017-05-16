@@ -11,6 +11,7 @@ using EasyUkr.WebApi.MyCode;
 namespace EasyUkr.WebApi.Controllers.Creating_Objects
 {
     [Authorize(Roles = "AppAdmin")]
+    //TODO: Need reformat code to async methods #2
     public class GrammarController : Controller
     {
         #region GRAMMAR
