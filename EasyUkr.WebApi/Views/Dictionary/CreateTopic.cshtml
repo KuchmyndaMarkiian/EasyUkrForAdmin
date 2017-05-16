@@ -1,29 +1,34 @@
 ﻿
 @model EasyUkr.WebApi.Models.ViewModels.Topic
 @{
-    ViewBag.Title = "CreateTopic";
+    ViewBag.Title = "Create Topic";
 }
 <body>
-<center>
-    <h2>Додавання нової категорії</h2>
-    @using (Html.BeginForm("CreateTopic", "Dictionary", FormMethod.Post, new {enctype = "multipart/form-data"}))
-    {
-        <fieldset>
-            <p>Назва категорії</p>
-            @Html.TextBoxFor(x => x.Header)
-            <p>Переклад</p>
-            @Html.TextBoxFor(x => x.Translate)
-            <h3>Выберите файл для загрузки</h3>
-            <div class="editor-field">
-                <input type="file" name="uploadImage"/>
-            </div>
-            <p>
-                <input type="submit" value="Добавить"/>
-            </p>
-        </fieldset>
-    }
-    <div>
-        @Html.ActionLink("Вернуться к списку", "TopicView", "Admin")
-    </div>
-</center>
+    <center>
+        <h2>Addind new topic</h2>
+        @using (Html.BeginForm("CreateTopic", "Dictionary", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <center>
+                <p>Header</p>
+                @Html.TextBoxFor(x => x.Header, new { @class = "form-control" })
+                <p>Translate</p>
+                @Html.TextBoxFor(x => x.Translate, new { @class = "form-control" })
+                <h3>Choose image</h3>
+                <div class="editor-field">
+                    <input class="btn btn-info" type="file" name="uploadImage" />
+                </div>
+                <br />
+                <p>
+                    <input class="btn btn-info" type="submit" value="Add" />
+                </p>
+            </center>
+        }
+        <br/>
+        <div>
+            @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
+        </div>
+    </center>
 </body>
+
+
+

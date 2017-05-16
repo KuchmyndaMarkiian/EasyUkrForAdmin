@@ -1,32 +1,27 @@
 ﻿
 @{
     ViewBag.Title = "AdminPage";
+    
 }
 <style>
-    #adminMenu a {
+    .list-group-item a {
         font-style: normal;
-        font-family: Noto Sans;
+        font-family: Hevletica,Verdana;
         -webkit-font-smoothing: antialiased;
-    }
-    #adminMenu menu {
-        width: auto;
-        height: auto;
+        font-size: 14pt;
     }
 </style>
 <body>
-<h1 style="text-align: center">Administrator` panel EasyUKR</h1>
-<div class="row">
-    <div  class="col-sm-1">
-        <menu id="adminMenu" style="border-bottom-color: darkcyan; border-bottom: aqua; width: 150px; background: #ffd700">
-            @Html.ActionLink("Dictionaries", "TopicView")<br/>
-            @Html.ActionLink("Grammars", "GrammarView")<br />
-            @Html.ActionLink("Recomendations", "RecommendationView")
-            <br />
-        </menu>
+<h1 style="text-align: center">Administrators` panel EasyUKR</h1>
+<center class="row">
+    <div class="container">
+        <h2>Resources</h2>
+        <ul class="list-group" style="width: 400px">
+            <li class="list-group-item">@Html.ActionLink("Dictionaries", "TopicView")</li>
+            <li class="list-group-item">@Html.ActionLink("Grammars", "GrammarView")</li>
+            <li class="list-group-item">@Html.ActionLink("Recomendations", "RecommendationView")</li>
+        </ul>
     </div>
-    <div class="col-sm-1 col-sm-offset-2" style="background: aqua; width: auto;">
-        
-    </div>
-</div>
-    </body>
+</center>
+</body>
 

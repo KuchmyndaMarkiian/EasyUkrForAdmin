@@ -1,0 +1,13 @@
+﻿
+table {
+    table-layout: fixed;
+}
+
+td, th {
+    width: 33.333%;
+    padding: 6px;
+    text-align: center
+}
+.tdFloat {
+    float: right
+}

@@ -1,0 +1,10 @@
+﻿ul {
+    width: auto;
+    overflow: hidden;
+    text-align: center;
+}
+li{
+    float: left;
+    display:inline;
+}
+#triple li  { width:33.333%; }

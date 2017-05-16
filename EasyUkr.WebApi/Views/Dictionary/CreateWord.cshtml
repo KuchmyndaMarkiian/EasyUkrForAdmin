@@ -1,28 +1,33 @@
 ﻿@model EasyUkr.WebApi.Models.ViewModels.Word
 @{
-    ViewBag.Title = "CreateWord";
+    ViewBag.Title = "Create Word";
 }
 <body>
 <center>
-    <h2>Додавання нової категорії</h2>
-    @using (Html.BeginForm("CreateWord", "Dictionary", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    <h2>Addind new word</h2>
+    @using (Html.BeginForm("CreateWord", "Dictionary", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <fieldset>
-            <p>Слово(укр)</p>
-            @Html.TextBoxFor(x => x.Text)
-            <p>Переклад(англ)</p>
-            @Html.TextBoxFor(x => x.Translate)
-            <h3>Выберите файл для загрузки</h3>
+        <center>
+            <p>Header(UKR)</p>
+            @Html.TextBoxFor(x => x.Text, new { @class = "form-control" })
+            <p>Translate(ENG)</p>
+            @Html.TextBoxFor(x => x.Translate, new { @class = "form-control" })
+            <h3>Choose image</h3>
             <div class="editor-field">
-                <input type="file" name="uploadImage"/>
+                <input class="btn btn-info" type="file" name="uploadImage" />
             </div>
+            <br />
             <p>
-                <input type="submit" value="Добавить"/>
+                <input class="btn btn-info" type="submit" value="Add" />
             </p>
-        </fieldset>
+        </center>
     }
+    <br />
+    <br />
+    <br/>
     <div>
-        @Html.ActionLink("Вернуться к списку", "DictionaryView", "Admin")
+        @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
     </div>
 </center>
 </body>
+

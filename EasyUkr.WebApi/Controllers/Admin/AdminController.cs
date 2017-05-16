@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using EasyUkr.WebApi.Infrastructure;
 using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.Admin
@@ -16,13 +17,11 @@ namespace EasyUkr.WebApi.Controllers.Admin
 
         public ActionResult TopicView()
         {
-            DbManager.Instance.SaveChanges();
             return View(DbManager.Instance.Data.WordTopics.ToList());
         }
 
         public ActionResult GrammarView()
         {
-            DbManager.Instance.SaveChanges();
             return View(DbManager.Instance.Data.GrammarTopics.ToList());
         }
 

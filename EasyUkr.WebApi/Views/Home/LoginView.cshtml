@@ -47,16 +47,16 @@
         cursor: pointer;
     }
 </style>
-
-<div class="loginForm">
+<center>
+<div class="loginForm form-group">
     <h3>Sign Up</h3>
     <label>Enter Nickname</label><br />
-    <input type="email" id="emailLogin" /> <br /><br />
+    <input type="email" class="form-control" id="emailLogin" /> <br /><br />
     <label>Enter Password</label><br />
-    <input type="password" id="passwordLogin" /><br /><br />
-    <input type="submit" id="submitLogin" value="Sign in" />
+    <input type="password"  class="form-control" id="passwordLogin" /><br /><br />
+    <input type="submit" id="submitLogin" class="btn btn-primary btn-md" value="Sign in" />
 </div>
-
+</center>
 <!-- The Modal -->
 <div id="myModalError" class="modal">
     <!-- Modal content -->
@@ -97,7 +97,7 @@
                     data: loginData,
                     success: function (data){
                         sessionStorage.setItem(tokenKey, data.access_token);
-                        window.location.href = '@Url.Action("Index", "Home")';
+                        window.location.href = '@Url.Action("AdminPage", "Admin")';
                     },
                     error: function(xhr, status, p3) {
                         btn.onclick = function() {

@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using EasyUkr.WebApi.Infrastructure.SessionManager;
 
 namespace EasyUkr.WebApi.Controllers
 {
@@ -9,7 +11,7 @@ namespace EasyUkr.WebApi.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            return View();
+            return AuthenticationMethods.RedirectToView(RedirectToAction("AdminPage","Admin"),RedirectToAction("LoginView"));
         }
         [AllowAnonymous]
         public ActionResult RegistrationView()

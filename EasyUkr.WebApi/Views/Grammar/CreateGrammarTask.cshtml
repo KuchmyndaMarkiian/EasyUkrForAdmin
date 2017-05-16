@@ -2,15 +2,17 @@
 @model EasyUkr.DataAccessLayer.Entities.Grammar.GrammarTask
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Create Task";
 }
 <style type="text/css">
     table {
         border-collapse: collapse;
     }
 
-    table, th, td {
-        border: 1px solid black;
+    td, th {
+        width: 33.333%;
+        padding: 6px;
+        text-align: center
     }
 </style>
 <body>
@@ -18,25 +20,25 @@
     <h2>Adding new task</h2>
     @using (Html.BeginForm("CreateGrammarTask", "Grammar"))
     {
-        <fieldset>
+        <center>
             <p>Header UKR</p>
-            @Html.TextBoxFor(x => x.HeaderUkr)
+            @Html.TextBoxFor(x => x.HeaderUkr, new { @class = "form-control" })
             <p>Translate ENG</p>
-            @Html.TextBoxFor(x => x.TranslateEng)
+            @Html.TextBoxFor(x => x.TranslateEng, new { @class = "form-control" })
             <p>Description</p>
-            @Html.TextBoxFor(x => x.Description)
-        </fieldset>
+            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+        </center>
         <br/>
         <p>Add answer</p>
         <p>
-            <input type="text" name="answerText" />
+            <input class="form-control" type="text" name="answerText" />
             <br/>
             <label>Correct?</label>
             <input type="checkbox" name="answerCheck" />
             <br />
-            <input type="submit" name="submitEvent" value="Add" />
+            <input class="btn btn-info" type="submit" name="submitEvent" value="Add" />
         </p>
-        <table>
+        <table class="table-bordered">
             <tr><th>Text</th><th>Is correct</th></tr>
             @if (Model != null)
             {
@@ -62,11 +64,11 @@
             }
         </table>
         <br />
-        <input type="submit" name="submitEvent" value="Save"/>
+        <input class="btn btn-info" type="submit" name="submitEvent" value="Save"/>
     }
-       
+       <br/>
     <div>
-        @Html.ActionLink("Вернуться к списку", "TopicView", "Admin")
+        @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
     </div>
 </center>
 </body>

@@ -1,75 +1,52 @@
 ﻿@model EasyUkr.DataAccessLayer.Entities.Recommendation.Recommendation[]
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Recomendations";
 }
 
-<link type="text/css" rel="stylesheet" href="~/Content/Site.css"/>
-<style>
-    #container {
-        border: 2px solid gray;
-        border-radius: 10px;
-        background: white;
-        width: 300px;
-        padding: 5px;
-        height: auto;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        text-align: center;
-        cursor: pointer;
-        float: left
-    }
-    #words {
-        border-radius: 10px;
-        background: white;
-        width: auto;
-        margin: auto;
-        max-width: 900px;
-        height: auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        border-color: transparent;
-        clear: both
-    }
-    label {
-        font-size: medium;
-        font-family: Noto Sans;
-    }
-    img {
-        width: 128px;
-        height:128px;
-    }
-</style>
+<link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Common.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Table.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/UL Table.css" type="text/css" />
 <body>
-<center>
-    <h1>Словник</h1>
-    <div id="words">
-        @foreach (var item in Model)
-        {
-            <div id="container">
-                <div>
-                    <div class="col-sm-7">
-                        @Html.LabelForModel(item.HeaderUkr)
-                        <br/>
-                        @Html.LabelForModel(item.TranslateEng)
-                        <br />
-                        <a href="@Url.Action("OpenLink", "Extension", new {link = item.UrlLink})" target="_blank">Open link here</a>
-                    </div>
-                    <div style="width: auto; height: auto" class="col-sm-offset-7">
-                        <img src="@Url.Content(item.FileAdress)" />
-                    </div>
-                </div>
-                <center>
-                    <a href="@Url.Action("DeleteRecommendation", "Recommendation", new {id = item.Id})">
-                        <img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png"/>
-                    </a>
-                </center>
-            </div>
-        }
-    </div>
-    <a href="@Url.Action("CreateRecommendation", "Recommendation", new {id = Model.First().ParentCategory.Id})">Додати слово</a>
+    <div class="container" style="text-align: center;">
+        <h2>@(Model.Any() ? Model.FirstOrDefault().ParentCategory.TranslateEng : "Recomendations")</h2>
+        <ul class="list-group" id="triple">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item" style="margin-bottom: 2px; width: 350px">
+                    <table>
+                        <tr>
+                            <td>
+                                <div style="width: auto; height: auto">
+                                    <img src="@Url.Content(item.FileAdress)" class="img"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div >
+                                    @Html.LabelForModel(item.HeaderUkr)
+                                    <br/>
+                                    @Html.LabelForModel(item.TranslateEng)
+                                    <br/>
+                                    <a href="@Url.Action("OpenLink", "Extension", new {link = item.UrlLink})" target="_blank" class="btn btn-primary btn-md">Open link here</a>
+                                </div>
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("DeleteRecommendation", "Recommendation", new {id = item.Id})">
+                                    <img class="img-rounded web-icon" src="~/Content/Web_Buttons/garbage.png"/>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            }
+        </ul>
+   
+        <a href="@Url.Action("CreateRecommendation", "Recommendation", new {id = Model.First().ParentCategory.Id})" class="btn btn-primary btn-md">Add item</a>
+        <br/>
     @{
-        if ((TempData["WordSuccess"] != null && (bool) TempData["WordSuccess"]) ||(TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
+        if ((TempData["WordSuccess"] != null && (bool)TempData["WordSuccess"]) || (TempData["DelSuccess"] != null && (bool)TempData["DelSuccess"]))
         {
             <text>
                 <script type="text/javascript">
@@ -79,8 +56,14 @@
             TempData["WordSuccess"] = false;
         }
     }
-    <div>
-        @Html.ActionLink("Вернуться к списку", "RecommendationView", "Admin")
+        <br/>
+        <br/>
+        <div>
+            @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
+        </div>
+        <br />
+        <div>
+            <a href="@Url.Action("AdminPage", "Admin")" class="btn btn-primary btn-md">Back to main page</a>
+        </div>
     </div>
-</center>
 </body>

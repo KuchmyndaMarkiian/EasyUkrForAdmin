@@ -1,62 +1,46 @@
 ﻿@model List<EasyUkr.DataAccessLayer.Entities.Grammar.GrammarTopic>
 @{
-    ViewBag.Title = "Граматики";
+    ViewBag.Title = "Grammars";
 }
-<style>
-    #container {
-        border: 2px solid gray;
-        border-radius: 10px;
-        background: white;
-        width: auto;
-        height: auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        text-align: center;
-        cursor: pointer;
-    }
-    label {
-        font-size: medium;
-        font-family: Noto Sans;
-        -webkit-font-smoothing: antialiased;
-    }
-    img {
-        width: 128px;
-        height:128px;
-    }
-</style>
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Common.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Table.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
 <body>
-<center>
-    <h1>Граматики</h1>
-    <div style="background: whitesmoke; border-radius: 15px; border-color: black; width: 400px; height: auto">
+    <div class="container" style="text-align: center;width: 350px">
+        <h2>Grammars</h2>
         <ul class="list-group">
             @foreach (var item in Model)
             {
                 if (item != null)
                 {
-                    <li class="list-group-item">
+                    <li class="list-group-item" style="margin-bottom: 2px">
                         <a href="@Url.Action("GrammarTasksView", new {id = item.Id})">
-                            <div id="container">
-                                <div class="col-sm-7" style="vertical-align: middle">
-                                    @Html.LabelForModel(item.HeaderUkr + "\n")
-                                    @Html.LabelForModel(item.TranslateEng + "\n")
-                                    <br/>
-                                    <br/>
-                                    <a href="@Url.Action("OpenDoc", "Extension", new {file = item.FileAdress})" target="_blank">Open file here</a>
-                                </div>
-                                <center>
-                                    <a href="@Url.Action("DeleteGrammar", "Grammar", new {id = item.Id})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png"/></a>
-                                </center>
-                            </div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="vertical-align: middle">
+                                            @Html.LabelForModel(item.HeaderUkr + "\n")
+                                            @Html.LabelForModel(item.TranslateEng + "\n")
+                                            <br/>
+                                            <br/>
+                                            <a href="@Url.Action("OpenDoc", "Extension", new {file = item.FileAdress})" target="_blank"  class="btn btn-primary btn-md">Open file here</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("DeleteGrammar", "Grammar", new {id = item.Id})">
+                                            <img class="web-icon" src="~/Content/Web_Buttons/garbage.png"/>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
                         </a>
-
                     </li>
                 }
             }
-        </ul>
-        <a href="@Url.Action("CreateGrammar", "Grammar")">Додати граматику</a>
+                </ul>
+        <a href="@Url.Action("CreateGrammar", "Grammar")"  class="btn btn-primary btn-md">Add grammar</a>
         @{
-            if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
+            if ((TempData["TopicSuccess"] != null && (bool)TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool)TempData["DelSuccess"]))
             {
                 <text>
                     <script type="text/javascript">
@@ -66,7 +50,10 @@
                 TempData["TopicSuccess"] = false;
             }
         }
+        <br/>
+        <div>
+            <a href="@Url.Action("AdminPage", "Admin")" class="btn btn-primary btn-md">Back to main page</a>
+        </div>
     </div>
-</center>
 </body>
 

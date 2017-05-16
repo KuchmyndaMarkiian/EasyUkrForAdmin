@@ -1,68 +1,65 @@
 ﻿@using EasyUkr.WebApi.HTMLHelpers
 @model List<EasyUkr.DataAccessLayer.Entities.Dictionary.WordTopic>
 @{
-    ViewBag.Title = "Категорії";
+    ViewBag.Title = "Topics";
 }
-<style>
-    #container {
-        border: 2px solid gray;
-        border-radius: 10px;
-        background: white;
-        width: auto;
-        height: auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        text-align: center;
-        cursor: pointer;
-    }
-    label {
-        font-size: medium;
-        font-family: Noto Sans;
-        -webkit-font-smoothing: antialiased;
-    }
-    img {
-        width: 128px;
-        height:128px;
-        
-    }
-</style>
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Common.css" type="text/css"/>
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Table.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
 <body>
-<center>
-    <h1>Категорії</h1>
-    <div id="topics" style="background: whitesmoke; border-radius: 15px; border-color: black; width: 400px; height: auto">
+<div class="container" style="text-align: center;width: 350px">
+    <h2>Dictionary</h2>
+    
+    <ul class="list-group" >
         @foreach (var item in Model)
-        {<a href="@Url.Action("DictionaryView", new {id = item.Id})">
-             <div>
-                 <div id="container">
-                     <div class="col-sm-7" style="vertical-align: middle">
-                         @Html.LabelForModel(item.Header)
-                         @Html.LabelForModel(" - " + item.Words.First(X => X.Text == item.Header).Translates.First().Text)
-                         <br/>
-                         @Html.LabelForModel("К-сть слів: " + item.Words.Count)
+        {
+            <li class="list-group-item" style="margin-bottom: 2px">
+                <a href="@Url.Action("DictionaryView", new {id = item.Id})">
+                    <table>
+                        <tr>
+                            <td>
+                                <div style="width: auto;" >
+                                    <img src="@Url.Content(item.Words.First(x => x.Text == item.Header).Translates.First().FileAdress)" class="img" />
+                                </div>
+                            </td>
+                            <td>
+                                <div  style="vertical-align: middle;">
+                                    @Html.LabelForModel(item.Header)
+                                    @Html.LabelForModel(" - " + item.Words.First(X => X.Text == item.Header).Translates.First().Text)
+                                    <br />
+                                    @Html.LabelForModel("Count: " + item.Words.Count)
 
-                     </div>
-                     <div style="width: auto; height: auto" class="col-sm-offset-7">
-                         <img src="@Url.Content(item.Words.First(x => x.Text == item.Header).Translates.First().FileAdress)"/>
-                        </div>
-                     <center><a href="@Url.Action("DeleteTopic","Dictionary", new {id = item.Id})"><img class="web-image" style="width: 50px; height: 50px" src="~/Content/Web_Buttons/garbage.png" /></a></center>
-                 </div>
-             </div>
-         </a>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("DeleteTopic", "Dictionary", new {id = item.Id})">
+                                    <img class="web-icon" src="~/Content/Web_Buttons/garbage.png"/>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
         }
-        <a href="@Url.Action("CreateTopic", "Dictionary")">Додати категорію</a>
-        @{
-            if ((TempData["TopicSuccess"] != null && (bool) TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool) TempData["DelSuccess"]))
-            {
-                <text>
-                    <script type="text/javascript">
-                        alert('Дані оновлені');
-                    </script>
-                </text>
-                TempData["TopicSuccess"] = false;
-            }
+    </ul>
+    <a href="@Url.Action("CreateTopic", "Dictionary")" class="btn btn-primary btn-md">Add topic</a>
+    @{
+        if ((TempData["TopicSuccess"] != null && (bool)TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool)TempData["DelSuccess"]))
+        {
+            <text>
+                <script type="text/javascript">
+                    alert('Дані оновлені');
+                </script>
+            </text>
+            TempData["TopicSuccess"] = false;
         }
+    }
+    <br/><br />
+    <div>
+        <a href="@Url.Action("AdminPage", "Admin")" class="btn btn-primary btn-md">Back to main page</a>
     </div>
-</center>
+</div>
 </body>
+
+
 

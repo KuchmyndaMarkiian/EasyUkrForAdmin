@@ -1,108 +1,102 @@
 ﻿@using System.Web.Mvc.Html
 @model ICollection<EasyUkr.DataAccessLayer.Entities.Grammar.GrammarTask>
 @{
-    ViewBag.Title = "Словник";
+    ViewBag.Title = "Grammars";
 }
 <link type="text/css" rel="stylesheet" href="~/Content/Site.css"/>
-<style>
-    #container {
-        border: 2px solid gray;
-        border-radius: 10px;
-        background: white;
-        width: 300px;
-        padding: 5px;
-        height: auto;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        text-align: center;
-        cursor: pointer;
-        float: left
-    }
-    #words {
-        border-radius: 10px;
-        background: white;
-        width: auto;
-        margin: auto;
-        max-width: 900px;
-        height: auto;
-        overflow-x: auto;
-        overflow-y: hidden;
-        border-color: transparent;
-        clear: both
-    }
-    label {
-        font-size: medium;
-        font-family: Noto Sans;
-     }
-    img {
-        width: 32px;
-        height:32px;
-    }
-</style>
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Common.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Table.css" type="text/css" />
 <body>
-<center>
-    <h1>Завдання</h1>
-    <div style="background: whitesmoke; border-radius: 15px; border-color: black; width: 400px; height: auto">
-        <ul class="list-group">
-            @foreach (var item in Model)
-            {
-                <li class="list-group-item">
-                    <div style="height: auto" class="col-md-6">
-                        @Html.LabelForModel(item.HeaderUkr)
-                        <br />
-                        @Html.LabelForModel(item.TranslateEng)
-                        <br />
-                        @Html.LabelForModel(item.Description)
-                    </div>
-                    <div class="col-md-6">
-                        @if (item.GrammarAnswers != null && item.GrammarAnswers.Any())
-                        {<table>
-                            <tr><th>Text</th><th>Is correct</th></tr>
-                            @foreach (var answer in item.GrammarAnswers)
-                            {
-                                <tr>
-                                    <td><center>@answer.Answer</center></td>
-
-                                    <td>
-                                        <center>
-                                            @if (answer.IsCorrect.Value)
-                                            {
-                                                <input type="checkbox" disabled="disabled" checked="checked" />
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" disabled="disabled" />
-                                            }
-                                        </center>
-                                    </td>
-                                </tr>
-                            }
+    <body>
+        <div class="container" style="text-align: center; ">
+            <h2>@(Model.Any() ? Model.FirstOrDefault().GrammarTopic.TranslateEng : "Tasks")</h2>
+            <ul class="list-group">
+                @foreach (var item in Model)
+                {
+                    <li class="list-group-item" style="margin-bottom: 2px;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div style="height: auto">
+                                        @Html.LabelForModel(item.HeaderUkr)
+                                        <br/>
+                                        @Html.LabelForModel(item.TranslateEng)
+                                        <br/>
+                                        @Html.LabelForModel(item.Description)
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        @if (item.GrammarAnswers != null && item.GrammarAnswers.Any())
+                                        {
+                                            <table width="500" class="table-bordered">
+                                                <tr>
+                                                    <th style="width: 24px">#</th>
+                                                    <th>Text</th>
+                                                    <th style="width: 50px">Is correct</th>
+                                                </tr>
+                                                @{ int index = 1; }
+                                                @foreach (var answer in item.GrammarAnswers)
+                                                {
+                                                    <tr>
+                                                        <td>@(index++)</td>
+                                                        <td>
+                                                            <div style="text-align: center;">@answer.Answer</div>
+                                                        </td>
+                                                        <td>
+                                                            <div style="text-align: center;">
+                                                                @if (answer.IsCorrect.Value)
+                                                                {
+                                                                    <input type="checkbox" disabled="disabled" checked="checked"/>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox" disabled="disabled"/>
+                                                                }
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        }
+                                    </div>
+                                </td>
+                                <td style="width: 36px">
+                                    <a href="@Url.Action("DeleteGrammarTask", "Grammar", new {id = item.Id})"><img class="img-rounded web-icon" src="~/Content/Web_Buttons/garbage.png"/></a>
+                                </td>
+                            </tr>
                         </table>
-                        }
-                    </div>
-
-                    <center>
-                        <a href="@Url.Action("DeleteGrammarTask", "Grammar", new {id = item.Id})"><img class="web-image" src="~/Content/Web_Buttons/garbage.png"/></a>
-                    </center>
-                </li>
+                    </li>
+                }
+            </ul>
+            <a href="@Url.Action("CreateGrammarTask", "Grammar", new {id = Model.First().GrammarTopic.Id})" class="btn btn-primary btn-md">Add task</a>
+        <br/>
+        @{
+            if ((TempData["TaskSuccess"] != null && (bool)TempData["TaskSuccess"]) || (TempData["DelSuccess"] != null && (bool)TempData["DelSuccess"]))
+            {
+                <text>
+                    <script type="text/javascript">
+                        alert('Дані оновлені');
+                    </script>
+                </text>
+                TempData["WordSuccess"] = false;
             }
-        </ul>
-        <a href="@Url.Action("CreateGrammarTask", "Grammar", new {id = Model.First().GrammarTopic.Id})">Додати таск</a>
-    </div>
-    @{
-        if ((TempData["TaskSuccess"] != null && (bool)TempData["TaskSuccess"]) || (TempData["DelSuccess"] != null && (bool)TempData["DelSuccess"]))
-        {
-            <text>
-                <script type="text/javascript">
-                    alert('Дані оновлені');
-                </script>
-            </text>
-            TempData["WordSuccess"] = false;
         }
-    }
-    <div>
-        @Html.ActionLink("Вернуться к списку", "GrammarView", "Admin")
-    </div>
-</center>
-</body>
+            <br/>
+            <br/>
+            <div>
+                @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
+            </div>
+            <br/>
+            <div>
+                <a href="@Url.Action("AdminPage", "Admin")" class="btn btn-primary btn-md">Back to main page</a>
+            </div>
+        </div>
+    </body>
+
+
+
+
+
+
 

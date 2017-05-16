@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using EasyUkr.DataAccessLayer.Contexts;
 
-namespace EasyUkr.WebApi.MyCode
+namespace EasyUkr.WebApi.Infrastructure
 {
     public class DbManager
     {
@@ -25,10 +22,7 @@ namespace EasyUkr.WebApi.MyCode
                 {
                     lock (_syncRoot)
                     {
-                        if (_instance == null)
-                        {
-                            _instance = new DbManager();
-                        }
+                        _instance = new DbManager();
                     }
                 }
                 return _instance;

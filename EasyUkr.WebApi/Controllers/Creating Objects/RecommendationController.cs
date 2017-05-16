@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EasyUkr.DataAccessLayer.Entities.Recommendation;
+using EasyUkr.WebApi.Infrastructure;
 using EasyUkr.WebApi.Models.ViewModels;
 using EasyUkr.WebApi.MyCode;
 using Recommendation = EasyUkr.WebApi.Models.ViewModels.Recommendation;

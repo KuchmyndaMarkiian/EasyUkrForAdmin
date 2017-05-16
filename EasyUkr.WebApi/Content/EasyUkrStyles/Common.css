@@ -1,0 +1,19 @@
+﻿ .list-group-item a {
+     font-style: normal;
+     font-family: Hevletica,Verdana;
+     -webkit-font-smoothing: antialiased;
+     color: black;
+ }
+ label {
+     font-size: medium;
+     font-family: Noto Sans;
+     -webkit-font-smoothing: antialiased;
+ }
+.web-icon {
+    width: 24px;
+    height: 24px
+}
+ .img {
+     width: 64px;
+     height: 64px;
+ }
