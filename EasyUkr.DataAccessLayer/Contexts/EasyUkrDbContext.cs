@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using EasyUkr.DataAccessLayer.Entities;
+using EasyUkr.DataAccessLayer.Entities.Dialogue;
 using EasyUkr.DataAccessLayer.Entities.Dictionary;
 using EasyUkr.DataAccessLayer.Entities.Grammar;
 using EasyUkr.DataAccessLayer.Entities.Recommendation;
@@ -38,6 +39,8 @@ namespace EasyUkr.DataAccessLayer.Contexts
         public DbSet<WordTopic> WordTopics { get; set; }
         public DbSet<Recommendation> Recommendations { get; set; }
         public DbSet<RecommendationCategory> RecommendationCategories { get; set; }
+       public DbSet<Dialogue> Dialogues { get; set; }
+
 
         public enum LevelUkr
         {
@@ -69,7 +72,7 @@ namespace EasyUkr.DataAccessLayer.Contexts
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<UserHistory>().HasRequired(u => u.User).WithMany(h => h.Histories);
-
+            
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Achievements)
                 .WithMany(a => a.GainedUsers)
@@ -85,6 +88,9 @@ namespace EasyUkr.DataAccessLayer.Contexts
             #region Dictionary Part
 
             modelBuilder.Entity<TranslateEng>()
+                .Property(x => x.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<Dialogue>()
                 .Property(x => x.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<WordUkr>()

@@ -74,5 +74,18 @@ namespace EasyUkr.WebApi.Controllers.Admin
                 return View(tmp);
             return RedirectToAction("CreateRecommendation", "Recommendation", new {id = id});
         }
+
+        public ActionResult DialogueView()
+        {
+            return View(DbManager.Instance.Data.Dialogues);
+        }
+
+        public ActionResult DialogueDetailsView(int id)
+        {
+            var tmp = DbManager.Instance.Data.Dialogues.FirstOrDefault(x => x.Id == id);
+            if (tmp!=null)
+                return View(tmp);
+            return RedirectToAction("DialogueView", "Admin", new { id = id });
+        }
     }
 }

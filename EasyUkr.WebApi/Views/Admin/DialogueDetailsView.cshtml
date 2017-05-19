@@ -1,0 +1,40 @@
+﻿@model EasyUkr.DataAccessLayer.Entities.Dialogue.Dialogue
+
+@{
+    ViewBag.Title = Model.Header;
+}
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Common.css" type="text/css" />
+<style type="text/css">
+    p.header {
+        font-weight: bold
+    }
+</style>
+<body>
+<center>
+    <h2>Details of the selected dialogue</h2>
+       
+    <center>
+        <p>Header</p>
+        @Html.DisplayTextFor(x => x.Header)
+        <br/>
+        <div style="width: auto;">
+            <img src="@Url.Content(Model.FileAdress)" class="img" />
+        </div>
+        <table class="table-bordered" width="600">
+            <tr><th>Dialogue Ukr</th><th>Dialogue Eng</th></tr>
+            <tr>
+                <td>
+                    <p>@Html.Raw(Model.DialogueUkr.Replace("\n", "<br />"))</p>
+                </td>
+                <td>
+                    <p>@Html.Raw(Model.DialogueEng.Replace("\n", "<br />"))</p>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <br />
+    <div>
+        @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
+    </div>
+</center>
+</body>

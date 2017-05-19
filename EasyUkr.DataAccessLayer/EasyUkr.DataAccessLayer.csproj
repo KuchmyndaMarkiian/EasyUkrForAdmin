@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\EasyUkrDbContext.cs" />
+    <Compile Include="Entities\Dialogue\Dialogue.cs" />
     <Compile Include="Entities\Grammar\GrammarAnswer.cs" />
     <Compile Include="Entities\Grammar\GrammarTask.cs" />
     <Compile Include="Entities\Grammar\GrammarTopic.cs" />
@@ -68,11 +69,21 @@
     <Compile Include="Entities\Dictionary\WordUkr.cs" />
     <Compile Include="Entities\Dictionary\WordTopic.cs" />
     <Compile Include="Initializer\EasyUkrInitializer.cs" />
+    <Compile Include="Migrations\201705191741529_DialogueAdded#2.cs" />
+    <Compile Include="Migrations\201705191741529_DialogueAdded#2.Designer.cs">
+      <DependentUpon>201705191741529_DialogueAdded#2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705191741529_DialogueAdded#2.resx">
+      <DependentUpon>201705191741529_DialogueAdded#2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

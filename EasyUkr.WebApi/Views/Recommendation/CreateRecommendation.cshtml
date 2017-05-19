@@ -7,24 +7,25 @@
         <h2>Adding new recomendation</h2>
         @using (Html.BeginForm("CreateRecommendation", "Recommendation", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <fieldset>
+            <center>
                 <p>Recomendation header (UKR)</p>
-                @Html.TextBoxFor(x => x.HeaderUkr)
+                @Html.TextBoxFor(x => x.HeaderUkr, new { @class = "form-control" })
                 <p>Recomendation header (ENG)</p>
-                @Html.TextBoxFor(x => x.TranslateEng)
+                @Html.TextBoxFor(x => x.TranslateEng, new { @class = "form-control" })
                 <p>Link:</p>
-                @Html.TextBoxFor(x => x.UrlLink)
+                @Html.TextBoxFor(x => x.UrlLink, new { @class = "form-control" })
                 <h3>Выберите файл для загрузки</h3>
                 <div class="editor-field">
-                    <input type="file" name="uploadFile" />
+                    <input class="btn btn-info" type="file" name="uploadFile" />
                 </div>
                 <p>
-                    <input type="submit" value="Добавить" />
+                    <input class="btn btn-info" type="submit" value="Добавить" />
                 </p>
-            </fieldset>
+            </center>
         }
+        <br />
         <div>
-            @Html.ActionLink("Вернуться к списку", "RecommendationListView", "Admin")
+            @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
         </div>
     </center>
 </body>

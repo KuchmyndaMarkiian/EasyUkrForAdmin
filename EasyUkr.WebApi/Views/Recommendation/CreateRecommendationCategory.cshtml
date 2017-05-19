@@ -4,25 +4,27 @@
 }
 <body>
     <center>
-        <h2>Додавання нової категорії</h2>
+        <h2>Addind new recomendarion category</h2>
         @using (Html.BeginForm("CreateRecommendationCategory", "Recommendation", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <fieldset>
-                <p>Назва категорії</p>
-                @Html.TextBoxFor(x => x.Header)
-                <p>Переклад</p>
-                @Html.TextBoxFor(x => x.Translate)
-                <h3>Выберите файл для загрузки</h3>
+            <center>
+                <p>Header(UKR)</p>
+                @Html.TextBoxFor(x => x.Header, new { @class = "form-control" })
+                <p>Translate(ENG)</p>
+                @Html.TextBoxFor(x => x.Translate, new { @class = "form-control" })
+                <h3>Choose image</h3>
                 <div class="editor-field">
-                    <input type="file" name="uploadFile" />
+                    <input class="btn btn-info" type="file" name="uploadFile" />
                 </div>
+                <br />
                 <p>
-                    <input type="submit" value="Добавить" />
+                    <input class="btn btn-info" type="submit" value="Добавить" />
                 </p>
-            </fieldset>
+            </center>
         }
+        <br />
         <div>
-            @Html.ActionLink("Go back to list", "RecommendationView", "Admin")
+            @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
         </div>
     </center>
 </body>

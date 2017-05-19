@@ -1,0 +1,34 @@
+﻿@model EasyUkr.WebApi.Models.ViewModels.Dialogue
+
+@{
+    ViewBag.Title = "title";
+}
+
+<body>
+<center>
+    <h2>Addind new dialogue</h2>
+    @using (Html.BeginForm("CreateDialogue", "Dialogue", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <center>
+            <p>Header</p>
+            @Html.TextBoxFor(x => x.Header, new { @class = "form-control" })
+            <p>Dialogue Ukr</p>
+            @Html.TextAreaFor(x => x.TextUkr, new { @class = "form-control" })
+            <p>Dialogue Eng</p>
+            @Html.TextAreaFor(x => x.TextEng, new { @class = "form-control" })
+            <h3>Choose image</h3>
+            <div class="editor-field">
+                <input class="btn btn-info" type="file" name="uploadImage" />
+            </div>
+            <br />
+            <p>
+                <input class="btn btn-info" type="submit" value="Add" />
+            </p>
+        </center>
+    }
+    <br/>
+    <div>
+        @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer, @class = "btn btn-primary" })
+    </div>
+</center>
+</body>

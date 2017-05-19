@@ -19,7 +19,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
      ValidateAntiForgeryToken]
     public class TramsmitingController : ApiController
     {
-        // GET api/Recieve/Topics
+        // GET api/Transmit/Topics
         [System.Web.Http.Route("Topics"), System.Web.Http.AllowAnonymous,
          ResponseType(typeof(List<Topic>))]
         public async Task<IHttpActionResult> GetTopicsResources()
@@ -47,7 +47,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             }
         }
 
-        // GET api/Recieve/Words
+        // GET api/Transmit/Words
         [System.Web.Http.Route("Words"), System.Web.Http.AllowAnonymous,
          ResponseType(typeof(List<Word>))]
         public async Task<IHttpActionResult> GetWordsResources()
@@ -76,7 +76,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             }
         }
 
-        // GET api/Recieve/Grammars
+        // GET api/Transmit/Grammars
         [System.Web.Http.Route("Grammars"), System.Web.Http.AllowAnonymous,
          ResponseType(typeof(List<Grammar>))]
         public async Task<IHttpActionResult> GetGrammarsResources()
@@ -103,7 +103,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             }
         }
 
-        // GET api/Recieve/GrammarTasks
+        // GET api/Transmit/GrammarTasks
         [System.Web.Http.Route("GrammarTasks"), System.Web.Http.AllowAnonymous,
          ResponseType(typeof(List<GrammarTask>))]
         public async Task<IHttpActionResult> GetGrammarTasksResources()
@@ -133,7 +133,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             }
         }
 
-        // GET api/Recieve/RecommendationCategories
+        // GET api/Transmit/RecommendationCategories
         [System.Web.Http.Route("RecommendationCategories"), System.Web.Http.AllowAnonymous,
          ResponseType(typeof(List<RecommendationCategory>))]
         public async Task<IHttpActionResult> GetRecomendationCategoriesResources()
@@ -160,7 +160,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             }
         }
 
-        // GET api/Recieve/Recommendations
+        // GET api/Transmit/Recommendations
         [System.Web.Http.Route("Recommendations"), System.Web.Http.AllowAnonymous,
          ResponseType(typeof(List<Recommendation>))]
         public async Task<IHttpActionResult> GetRecomendationsResources()
@@ -189,7 +189,35 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             }
         }
 
-        // GET api/Recieve/GetFile?type={type}%id={id}
+        // GET api/Transmit/Dialogues
+        [System.Web.Http.Route("Dialogues"), System.Web.Http.AllowAnonymous,
+         ResponseType(typeof(List<Dialogue>))]
+        public async Task<IHttpActionResult> GetDialogues()
+        {
+            try
+            {
+                return Ok(await Task.Run(() =>
+                {
+                    var res = new List<Dialogue>(
+                        DbManager.Instance.Data.Dialogues.Select(
+                            t => new Dialogue
+                            {
+                                Id = t.Id,
+                                DialogueEng = t.DialogueEng,
+                                DialogueUkr = t.DialogueUkr,
+                                Header = t.Header
+                            }));
+                    DbManager.Instance.Data.SaveChangesAsync();
+                    return res;
+                }));
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        // GET api/Transmit/GetFile?type={type}%id={id}
         [System.Web.Http.Route("GetFile"), System.Web.Http.AllowAnonymous]
         public async Task<HttpResponseMessage> GetFile(string type, int id)
         {
@@ -224,6 +252,13 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                     var entity = await DbManager.Instance.Data.GrammarTopics.FirstOrDefaultAsync(x => x.Id == id);
                     if (entity != null)
                         file = main + "Content\\Grammar\\" + entity.FileAdress.TrimStart('~');
+                    break;
+                }
+                case "dialogue":
+                {
+                    var entity = await DbManager.Instance.Data.Dialogues.FirstOrDefaultAsync(x => x.Id == id);
+                    if (entity != null)
+                        file = main + entity.FileAdress.TrimStart('~');
                     break;
                 }
             }

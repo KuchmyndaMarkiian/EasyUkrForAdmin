@@ -3,10 +3,12 @@ using EasyUkr.DataAccessLayer.Contexts;
 
 namespace EasyUkr.WebApi.Infrastructure
 {
-    public class DbManager
+#pragma warning disable S3881 // "IDisposable" should be implemented correctly
+    public class DbManager : IDbManager
+#pragma warning restore S3881 // "IDisposable" should be implemented correctly
     {
         private static DbManager _instance;
-        private static object _syncRoot = new Object();
+        private static readonly object _syncRoot = new Object();
         public EasyUkrDbContext Data { get; }
 
         protected DbManager()
@@ -32,6 +34,12 @@ namespace EasyUkr.WebApi.Infrastructure
         public void SaveChanges()
         {
             Data?.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Data?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

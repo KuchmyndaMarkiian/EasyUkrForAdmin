@@ -1,0 +1,59 @@
+﻿@model System.Data.Entity.DbSet<EasyUkr.DataAccessLayer.Entities.Dialogue.Dialogue>
+
+@{
+    ViewBag.Title = "Dialogues";
+}
+
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Common.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/EasyUkrStyles/Table.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+<body>
+    <div class="container" style="text-align: center;width: 350px">
+        <h2>Dialogues</h2>
+
+        <ul class="list-group">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item" style="margin-bottom: 2px">
+                    <a href="@Url.Action("DialogueDetailsView", new {id = item.Id})">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div style="width: auto;">
+                                        <img src="@Url.Content(item.FileAdress)" class="img" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="vertical-align: middle;">
+                                        @Html.LabelForModel(item.Header)
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("DeleteDialogue", "Dialogue", new {id = item.Id})">
+                                        <img class="web-icon" src="~/Content/Web_Buttons/garbage.png" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </a>
+                </li>
+            }
+        </ul>
+        <a href="@Url.Action("CreateDialogue", "Dialogue")" class="btn btn-primary btn-md">Add dialogue</a>
+        @{
+            if ((TempData["TopicSuccess"] != null && (bool)TempData["TopicSuccess"]) || (TempData["DelSuccess"] != null && (bool)TempData["DelSuccess"]))
+            {
+                <text>
+                    <script type="text/javascript">
+                    alert('Дані оновлені');
+                    </script>
+                </text>
+                TempData["TopicSuccess"] = false;
+            }
+        }
+        <br /><br />
+        <div>
+            <a href="@Url.Action("AdminPage", "Admin")" class="btn btn-primary btn-md">Back to main page</a>
+        </div>
+    </div>
+</body>

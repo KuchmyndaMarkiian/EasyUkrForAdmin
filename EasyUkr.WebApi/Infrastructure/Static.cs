@@ -4,6 +4,7 @@ namespace EasyUkr.WebApi.MyCode
     public static class Static
     {
         public static readonly string GrammarPath="\\Content\\Grammar\\";
+        public static readonly string DialoguePath = "\\Content\\Dialogue\\";
         public static readonly string RecomendationPath = "\\Content\\Recomendation\\";
         public static readonly string IconPath= "Content\\Icons\\Сategories";
     }
