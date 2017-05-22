@@ -16,12 +16,20 @@ using Microsoft.AspNet.Identity;
 
 namespace EasyUkr.WebApi.Controllers.CustomWebAPI
 {
+    /// <summary>
+    /// Клас для роботи з даними користувача
+    /// (завантаження, оновлення та оновлення аватарки)
+    /// </summary>
     [System.Web.Http.Authorize]
     [System.Web.Http.RoutePrefix("api/UserManaging"),
      ValidateAntiForgeryToken]
     public class UserManagingController : ApiController
     {
         // GET api/UserManaging/UserInfo
+        /// <summary>
+        /// Завантаження даних користувача
+        /// </summary>
+        /// <returns>Результат у JSON</returns>
         [System.Web.Http.Route("UserInfo"),
          ResponseType(typeof(UserInfo))]
         public async Task<IHttpActionResult> GetUserInfo()
@@ -34,7 +42,11 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                     var founded = DbManager.Instance.Data.Users.FirstOrDefault(x => x.UserName == name);
                     if (founded == null)
                         return null;
-
+                    var dataLevels = DbManager.Instance.Data.Levels;
+                    var nextLevelId = dataLevels.FirstOrDefault(x => x.LevelHeader == founded.Level)
+                                          .Id + 1;
+                    var nextScore = dataLevels.FirstOrDefault(x => x.Id == nextLevelId)?.MinScore;
+                    var maxScoredLevel = dataLevels.FirstOrDefault(x => x.MinScore == dataLevels.Max(d => d.MinScore));
                     return new UserInfo
                     {
                         DateOfBirth = founded.DateOfBirth,
@@ -46,6 +58,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                                 .Text,
                         Name = founded.Name,
                         Score = founded.Score,
+                        MaxScore = nextScore.HasValue ? nextScore.Value : maxScoredLevel.MinScore,
                         Surname = founded.Surname,
                         IsTested = founded.IsTested
                     };
@@ -56,8 +69,11 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 return InternalServerError(e);
             }
         }
-
         // GET api/UserManaging/UserAvatar
+        /// <summary>
+        /// Заваниаження аватарки
+        /// </summary>
+        /// <returns>Результат файлом</returns>
         [System.Web.Http.Route("UserAvatar")]
         public async Task<HttpResponseMessage> GetAvatar()
         {
@@ -69,8 +85,12 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
             string path = AppDomain.CurrentDomain.BaseDirectory + founded.Avatar.TrimStart('~');
             return await FileDownloader.PutFile(path);
         }
-
         //POST api/UserManaging/UpdateUserInfo
+        /// <summary>
+        /// Оновлення даних коористувача
+        /// </summary>
+        /// <param name="info">Вхідні дані користувача</param>
+        /// <returns>Результат</returns>
         [System.Web.Http.Route("UpdateUserInfo")]
         public async Task<IHttpActionResult> UpdateUserInfo(UserInfo info)
         {
@@ -84,7 +104,6 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 var founded = DbManager.Instance.Data.Users.FirstOrDefault(x => x.UserName == name);
                 if (founded == null)
                     return null;
-
                 founded.Name = info.Name;
                 founded.Surname = info.Surname;
                 founded.IsTested = info.IsTested;
@@ -93,7 +112,7 @@ namespace EasyUkr.WebApi.Controllers.CustomWebAPI
                 var lvl = await lvls.FirstOrDefaultAsync(x => x.LevelHeader == founded.Level);
                 if (founded.Score >= lvl.MinScore)
                     founded.Level = (await lvls.FirstOrDefaultAsync(x => x.Id == lvl.Id + 1)).LevelHeader;
-                await  DbManager.Instance.Data.SaveChangesAsync();
+                await DbManager.Instance.Data.SaveChangesAsync();
             }
             catch (Exception e)
             {

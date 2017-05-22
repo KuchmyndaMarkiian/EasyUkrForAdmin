@@ -21,7 +21,7 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
             return View();
         }
         [HttpPost]
-        public ActionResult CreateTopic(Topic model, HttpPostedFileBase uploadImage)
+        public ActionResult CreateTopic(TopicWord model, HttpPostedFileBase uploadImage)
         {
             TempData["TopicSuccess"] = false;
             if (ModelState.IsValid && uploadImage != null)
@@ -41,7 +41,7 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
                     Text = model.Translate.ToLower()
                 };
 
-                WordUkr word = new WordUkr { Text = model.Header.ToLower() };
+                WordUkr word = new WordUkr { Text = model.Header.ToLower(),Transcription = model.Transcription.ToLower()};
                 word.Translates.Add(translate);
 
                 WordTopic newTopic = new WordTopic { Header = model.Header.ToLower() };
@@ -72,24 +72,24 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
         #endregion
         #region WORD
         [HttpPost]
-        public ActionResult CreateWord(Word model, HttpPostedFileBase uploadImage)
+        public ActionResult CreateWord(TopicWord model, HttpPostedFileBase uploadImage)
         {
             TempData["WordSuccess"] = false;
             if (ModelState.IsValid && uploadImage != null)
             {
                 int id = int.Parse(HttpContext.Request.Cookies["topic"].Value);
 
-                model.Image = uploadImage;
+                model.File = uploadImage;
 
                 var foundedTopic = DbManager.Instance.Data.WordTopics?.First(x => x.Id == id);
                 if (foundedTopic != null)
                 {
                     var folder = foundedTopic.Words.First(x => x.Text == foundedTopic.Header).Translates.First().Text;
 
-                    var file = model.Image;
+                    var file = model.File;
                     var path = AppDomain.CurrentDomain.BaseDirectory + '\\' + $"{Static.IconPath}\\{folder}";
                     Directory.CreateDirectory(path);
-                    file.SaveAs(path + '\\' + model.Image.FileName);
+                    file.SaveAs(path + '\\' + model.File.FileName);
 
 
                     TranslateEng translate = new TranslateEng
@@ -98,7 +98,7 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
                         Text = model.Translate.ToLower()
                     };
 
-                    WordUkr word = new WordUkr { Text = model.Text.ToLower() };
+                    WordUkr word = new WordUkr { Text = model.Header.ToLower(), Transcription = model.Transcription.ToLower() };
                     word.Translates.Add(translate);
 
                     foundedTopic.Words.Add(word);

@@ -1,5 +1,5 @@
 ﻿
-@model EasyUkr.WebApi.Models.ViewModels.Topic
+@model EasyUkr.WebApi.Models.ViewModels.TopicWord
 @{
     ViewBag.Title = "Create Topic";
 }
@@ -11,6 +11,8 @@
             <center>
                 <p>Header Ukr</p>
                 @Html.TextBoxFor(x => x.Header, new { @class = "form-control" })
+                <p>Transcription of header(<a href="https://en.wikipedia.org/wiki/Help:IPA_for_Ukrainian">IPA examples</a>)</p>
+                @Html.TextBoxFor(x => x.Transcription, new { @class = "form-control" })
                 <p>Translate Eng</p>
                 @Html.TextBoxFor(x => x.Translate, new { @class = "form-control" })
                 <h3>Choose image</h3>

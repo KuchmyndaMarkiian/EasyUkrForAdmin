@@ -9,11 +9,11 @@ namespace EasyUkr.WebApi.Infrastructure
     {
         private static DbManager _instance;
         private static readonly object _syncRoot = new Object();
-        public EasyUkrDbContext Data { get; }
+        public EasyUkrDbContext Data { get; } = new EasyUkrDbContext();
 
         protected DbManager()
         {
-            Data=new EasyUkrDbContext();
+            
         }
 
         public static DbManager Instance

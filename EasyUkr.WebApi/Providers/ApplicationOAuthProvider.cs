@@ -32,7 +32,7 @@ namespace EasyUkr.WebApi.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "Имя пользователя или пароль указаны неправильно.");
+                context.SetError("invalid_grant", "Wrong login or password.");
                 return;
             }
 

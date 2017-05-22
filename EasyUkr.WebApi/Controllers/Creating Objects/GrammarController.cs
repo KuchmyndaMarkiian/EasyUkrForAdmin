@@ -23,7 +23,7 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
         }
 
         [HttpPost]
-        public ActionResult CreateGrammar(Topic model, HttpPostedFileBase uploadDoc)
+        public ActionResult CreateGrammar(TopicWord model, HttpPostedFileBase uploadDoc)
         {
             TempData["TopicSuccess"] = false;
             if (ModelState.IsValid && uploadDoc != null)

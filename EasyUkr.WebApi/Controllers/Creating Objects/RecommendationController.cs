@@ -26,7 +26,7 @@ namespace EasyUkr.WebApi.Controllers.Creating_Objects
         }
 
         [HttpPost]
-        public ActionResult CreateRecommendationCategory(Topic model, HttpPostedFileBase uploadFile)
+        public ActionResult CreateRecommendationCategory(TopicWord model, HttpPostedFileBase uploadFile)
         {
             TempData["TopicSuccess"] = false;
             if (ModelState.IsValid && uploadFile != null)

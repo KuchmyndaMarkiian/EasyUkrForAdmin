@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using EasyUkr.DataAccessLayer.Contexts;
 using EasyUkr.WebApi.Infrastructure;
 using EasyUkr.WebApi.MyCode;
 
@@ -17,7 +18,7 @@ namespace EasyUkr.WebApi.Controllers.Admin
 
         public ActionResult TopicView()
         {
-            return View(DbManager.Instance.Data.WordTopics.ToList());
+            return View(DbManager.Instance.Data.WordTopics.ToArray());
         }
 
         public ActionResult GrammarView()

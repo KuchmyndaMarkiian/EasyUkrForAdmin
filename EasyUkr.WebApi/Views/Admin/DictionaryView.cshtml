@@ -21,8 +21,10 @@
                             </div>
                         </td>
                         <td>
-                            <div  style="vertical-align: middle;">
+                            <div style="vertical-align: middle;">
                                 @Html.LabelForModel(item.Text)
+                                <br/>
+                                @Html.LabelForModel($"[{item.Transcription}]")
                                 <br/>
                                 @Html.LabelForModel(item.Translates.First().Text)
                             </div>

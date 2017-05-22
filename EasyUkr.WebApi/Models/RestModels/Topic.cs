@@ -7,6 +7,7 @@
             public string Text { get; set; }
             public string Translate { get; set; }
             public int TranslateImageId { get; set; }
+            public string Transcription { get; set; }
         }
     
 }
