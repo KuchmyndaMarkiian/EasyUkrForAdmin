@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using EasyUkr.DataAccessLayer.Contexts;
 using EasyUkr.WebApi.Infrastructure;
-using EasyUkr.WebApi.MyCode;
 
 namespace EasyUkr.WebApi.Controllers.Admin
 {

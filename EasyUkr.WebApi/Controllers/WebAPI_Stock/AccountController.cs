@@ -307,26 +307,19 @@ namespace EasyUkr.WebApi.Controllers.WebAPI_Stock
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Wrong data");
+                return BadRequest(ModelState);
             }
-            try
-            {
-                var user = model.ConvetToUser();
+            var user = model.ConvetToUser();
 
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
-                if (!result.Succeeded)
-                {
-                    return new BadRequestErrorMessageResult(string.Join("\n", result.Errors), this);
-                }
-            }
-            catch (Exception e)
+            if (!result.Succeeded)
             {
-                 return new BadRequestErrorMessageResult(e.Message, this);
+                return GetErrorResult(result);
             }
-            return Ok("Registered");
+            return Ok();
         }
-        
+
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]

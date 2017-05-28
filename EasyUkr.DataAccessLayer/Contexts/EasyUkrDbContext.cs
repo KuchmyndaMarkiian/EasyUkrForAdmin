@@ -21,6 +21,10 @@ namespace EasyUkr.DataAccessLayer.Contexts
             Database.SetInitializer(new EasyUkrInitializer("Admin",".EasyUkr17"));
         }
 
+        static EasyUkrDbContext()
+        {
+            Database.SetInitializer(new EasyUkrInitializer("Admin", ".EasyUkr17"));
+        }
         public static EasyUkrDbContext Create()
         {
             return new EasyUkrDbContext();

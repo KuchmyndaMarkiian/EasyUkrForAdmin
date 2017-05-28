@@ -58,7 +58,7 @@ namespace EasyUkr.DataAccessLayer.Initializer
 
         protected override void Seed(EasyUkrDbContext context)
         {
-
+           
             #region Constant Levels
 
             context.Levels.AddRange(new[]
@@ -83,10 +83,10 @@ namespace EasyUkr.DataAccessLayer.Initializer
             context.SaveChanges();
 
             #endregion
-            InitializeRole(context);
-            base.Seed(context);
-            //Puting admin and set him role AppAdmin
             
+            base.Seed(context);
+            //Puting admin and set his role AppAdmin
+            InitializeRole(context);
         }
     }
 }
